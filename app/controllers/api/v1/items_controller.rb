@@ -1,12 +1,11 @@
 module Api::V1
-  class ItemController < ApiController
+  class ItemsController < ApiController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-
-    before_action :authenticate
 
 
     def index
-
+      @items = @current_user.items.all
+      render json: @items
     end
 
 

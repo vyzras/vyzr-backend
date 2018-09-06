@@ -33,7 +33,7 @@ class User < ApplicationRecord
   def fetch_items(list)
       items =  list.items
       items.each.with_index do |item,index|
-        a = self.items.find_or_create_by(title: item.data["Title"].to_s, description:item.data["vpts"].to_s,image_url: item.data["image"].to_s ,status:item.data["Status"].to_s, author_id:item.data["AuthorId"].to_s,editor_id:item.data["EditorId"].to_s,item_uri: item.data['__metadata']['uri'])
+        a = self.items.find_or_create_by(title: item.data["Title"].to_s, description:item.data["vpts"].to_s,image_url: item.data["image"].to_s ,status:item.data["Status"].humanize, author_id:item.data["AuthorId"].to_s,editor_id:item.data["EditorId"].to_s,item_uri: item.data['__metadata']['uri'])
           if a.errors.any?
            return a.errors.full_message
           end

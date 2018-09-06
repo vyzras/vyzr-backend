@@ -1,8 +1,8 @@
 module Api::V1
   class UsersController < ApiController
-    include ActionController::HttpAuthentication::Token::ControllerMethods
+    skip_before_action :authenticate, only: [:sign_in]
+
     require 'sharepoint/sharepoint-ruby'
-    before_action :authenticate , only: [:index, :show]
 
     def index
      @user = User.all
@@ -28,23 +28,6 @@ module Api::V1
      render json: @current_user
     end
 
-
-    protected
-    # Authenticate the user with token based authentication
-    def authenticate
-      authenticate_token || render_unauthorized
-    end
-
-    def authenticate_token
-      authenticate_with_http_token do |token, options|
-        @current_user = User.find_by(api_key: token)
-      end
-    end
-
-    def render_unauthorized(realm = "Application")
-      self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-      render json: 'Bad credentials', status: :unauthorized
-    end
 
   end
 end
