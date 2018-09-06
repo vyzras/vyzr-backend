@@ -13,11 +13,10 @@ module Api::V1
       @user =  User.find_or_create_by(email:params[:users][:user_name] , password:params[:users][:password] )
       sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
       sites.session.authenticate   "#{params[:users][:user_name]}", "#{params[:users][:password]}"
-      @user.sites = sites
       list = sites.list('vyzr-test')
-      # result = list.add_item(Title: "Second Item", vpts: 'This Item send to Rest API', Status: 'Under Review')
+      @user.create_list(list.title)
+      @user.fetch_items(list)
       # list.update_item({Status: "Resolved"}, url)
-      @user.list = list
       if @user.save
          render json: @user
        else

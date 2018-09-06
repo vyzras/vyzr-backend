@@ -7,6 +7,7 @@ class CreateItems < ActiveRecord::Migration[5.1]
       t.string :status
       t.string :author_id
       t.string :editor_id
+      t.string :item_uri
       t.references :user
       t.timestamps
     end

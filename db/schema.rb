@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180827072521) do
     t.string "status"
     t.string "author_id"
     t.string "editor_id"
+    t.string "item_uri"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

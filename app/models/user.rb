@@ -6,9 +6,6 @@ class User < ApplicationRecord
 
   # Callbacks
    before_save do |user| user.api_key = user.generate_api_key end
-   before_save :create_list
-   # before_save :fetch_items
-   # before_save :insertItem
 
   ### Constants
 
@@ -23,27 +20,26 @@ class User < ApplicationRecord
 
 
   ## Create List
-   def create_list
+   def create_list (list)
      if !List.all.present?
-       puts self.list.as_json
-        # List.create(title: self.list.title)
+        List.create(title:list)
      else
          return true
      end
-
   end
 
 
   ## fetch items in list
-  def fetch_items
-
-    items =  share_point_lists.items
-    items.each do |item|
-      a = self.items.create(title: item.data["Title"].to_s, description:item.data["vpts"].to_s,image_url: item.data["image"].to_s ,status:item.data["Status"].to_s, author_id:item.data["AuthorId"].to_s,editor_id:item.data["EditorId"].to_s)
-        if a.errors.any?
-          puts a.errors.messages
+  def fetch_items(list)
+      items =  list.items
+      items.each.with_index do |item,index|
+        a = self.items.find_or_create_by(title: item.data["Title"].to_s, description:item.data["vpts"].to_s,image_url: item.data["image"].to_s ,status:item.data["Status"].to_s, author_id:item.data["AuthorId"].to_s,editor_id:item.data["EditorId"].to_s,item_uri: item.data['__metadata']['uri'])
+          if a.errors.any?
+           return a.errors.full_message
+          end
         end
       end
-  end
+
+
 
 end
