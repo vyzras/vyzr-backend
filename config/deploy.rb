@@ -2,13 +2,13 @@
 lock "~> 3.11.0"
 
 set :application, "vyzr-backend"
-set :repo_url, "git@bitbucket.org:phaedra/food_karma_backend.git"
+set :repo_url, "git@bitbucket.org:phaedra/vyzr-backend.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/www/sites/vyzr"
+set :deploy_to, "/www/sites/vyzr-backend"
 set :scm, :git
 
 # Default value for :format is :airbrussh.
