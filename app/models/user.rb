@@ -3,9 +3,10 @@ class User < ApplicationRecord
   #### ASSOCIATIONS ####
   has_many :items
 
+
   # Callbacks
    before_save do |user| user.api_key = user.generate_api_key end
-   # before_save :create_list
+   before_save :create_list
    # before_save :fetch_items
    # before_save :insertItem
 
@@ -24,8 +25,8 @@ class User < ApplicationRecord
   ## Create List
    def create_list
      if !List.all.present?
-        share_point_lists = VyzrBackend::Application.config.sites.list 'vyzr-Test'
-        List.create(title: share_point_lists.title)
+       puts self.list.as_json
+        # List.create(title: self.list.title)
      else
          return true
      end
@@ -43,18 +44,6 @@ class User < ApplicationRecord
           puts a.errors.messages
         end
       end
-  end
-
-
-  def insertItem
-    begin
-      share_point_lists = VyzrBackend::Application.config.sites.list 'vyzr-Test'
-      share_point_lists.add_item(title: "heelo")
-    rescue Sharepoint::SPException => e
-      puts "Sharepoint complained about something: #{e.message}"
-      puts "The action that was being executed was: #{e.uri}"
-      puts "The request had a body: #{e.request_body}" unless e.request_body.nil?
-    end
   end
 
 end

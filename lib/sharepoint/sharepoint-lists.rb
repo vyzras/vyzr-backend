@@ -95,6 +95,13 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
+    def update_item attributes, update_uri
+      attributes['__metadata']         ||= Hash.new
+      attributes['__metadata']['type'] ||= list_item_entity_type_full_name
+      puts attributes.to_json
+      # @site.query :post, update_uri, attributes.to_json
+    end
+
     def add_folder path, attributes
       path      = path.gsub(/\/*$/, '') # remove slashes at the end of the path
       site_url  = "#{@site.protocol}://#{@site.server_url}/"

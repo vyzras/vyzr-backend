@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20180827072521) do
     t.string "password"
     t.string "first_name"
     t.string "last_name"
-    t.text "security_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "api_key"
