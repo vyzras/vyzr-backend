@@ -3,6 +3,7 @@ require 'curb'
 
 module Sharepoint
   MICROSOFT_STS_URL = "https://login.microsoftonline.com/extSTS.srf"
+  extend ActiveSupport::Concern
 
   module Soap
     class Authenticate
@@ -85,7 +86,7 @@ module Sharepoint
         offset  = ($~.offset 1)
         message = xml[offset[0]..offset[1] - 1]
       end
-      raise AuthenticationFailed.new message
+
     end
   end
 end
