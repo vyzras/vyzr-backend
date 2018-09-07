@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -36,8 +35,8 @@
       <file leaf-file-name="sharepoint-lists.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="106" column="12" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="12" />
+            <state relative-caret-position="310">
+              <caret line="107" column="51" selection-start-line="107" selection-start-column="51" selection-end-line="107" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -395,7 +394,7 @@
       <option name="presentableId" value="Default" />
       <updated>1534497504309</updated>
       <workItem from="1534497505804" duration="51982000" />
-      <workItem from="1536233335578" duration="12041000" />
+      <workItem from="1536233335578" duration="12275000" />
     </task>
     <servers />
   </component>
@@ -405,7 +404,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64023000" />
+    <option name="totallyTimeSpent" value="64257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -695,8 +694,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="106" column="12" selection-start-line="106" selection-start-column="12" selection-end-line="106" selection-end-column="12" />
+        <state relative-caret-position="310">
+          <caret line="107" column="51" selection-start-line="107" selection-start-column="51" selection-end-line="107" selection-end-column="51" />
         </state>
       </provider>
     </entry>
