@@ -1,7 +1,7 @@
 module Api::V1
   class ItemsController < ApiController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    skip_before_action :authenticate, only: [:updated_list]
+    skip_before_action :authenticate, only: [:updated_list,:subscription]
 
     before_action :set_item
 
@@ -30,10 +30,16 @@ module Api::V1
 
 
     def updated_list
+      puts params
+    end
+
+
+    def subscription
       sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
       sites.session.authenticate   User.first.email, User.first.password
       list = sites.list('vyzr-test')
-      list.create_subscription('http://vyzrbackend.mashup.li/v1/updated_list')
+      url = list.data["__metadata"]["uri"]
+      list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list')
     end
 
     def destroy
