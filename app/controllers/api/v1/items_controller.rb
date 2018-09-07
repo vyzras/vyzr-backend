@@ -44,7 +44,7 @@ module Api::V1
 
     def updated_list
       validate = params['validationtoken']
-      render :json => {validationtoken: validate.as_json}
+      render :json => validate.as_json
     end
 
 
