@@ -16,22 +16,27 @@ module Api::V1
     end
 
     def create
-      sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
-      sites.session.authenticate   @current_user.email, @current_user.password
-      list = sites.list('vyzr-test')
-      begin
-        list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
-      rescue Sharepoint::SPException => e
-        render json: "Sharepoint complained about something: #{e.message}"
-      end
-       @current_user.fetch_items(list)
-      render json: {success: true , data: Item.last}
-    end
+         site_name=  @current_user.server_url
+         a = site_name.split('.com/')
+         sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+         sites.session.authenticate   @current_user.email, @current_user.password
+          list = sites.list(@current_user.list_name)
+        begin
+          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
+        rescue Sharepoint::SPException => e
+          render json: "Sharepoint complained about something: #{e.message}"
+        end
+         @current_user.fetch_items(list)
+        render json: {success: true , data: Item.last}
+        end
+
 
     def update
-      sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
+      site_name=  @current_user.server_url
+      a = site_name.split('.com/')
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
       sites.session.authenticate   @current_user.email, @current_user.password
-      list = sites.list('vyzr-test')
+      list = sites.list(@current_user.list_name)
       begin
       list_result = list.update_item({Status: params[:items][:Status]}, @items.item_uri)
       rescue Sharepoint::SPException => e
