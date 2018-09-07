@@ -36,8 +36,5 @@ class User < ApplicationRecord
             puts a.errors.full_messages
           end
         end
-      end
-
-
-
+  end
 end

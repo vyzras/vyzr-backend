@@ -19,7 +19,7 @@ module Api::V1
       if @user.save
          render json: {success: true , data: @user}
        else
-         render json: @user.errors.full_messages.to_sentence
+         render json: {success: true , error => "User Name or Email doesn't Exist"}
       end
     end
 

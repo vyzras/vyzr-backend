@@ -43,9 +43,11 @@ module Api::V1
 
 
     def updated_list
-      # validate = params['validationtoken']
-      # render :json => validate.as_json
-      #
+      # List.all.delete_all
+      # sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
+      # sites.session.authenticate   User.first.email, User.first.password
+      # list = sites.list('vyzr-test')
+      # User.first.fetch_items(list)
     end
 
 
