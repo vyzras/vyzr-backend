@@ -99,6 +99,9 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
+    def create_subscription notificationUrl, list
+    end
+
     def update_item attributes, update_uri
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name

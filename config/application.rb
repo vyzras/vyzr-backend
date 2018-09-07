@@ -30,10 +30,9 @@ module VyzrBackend
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-        resource '*', :headers => :any, :methods => [:get, :post,:put ,:options]
+        resource '*', :headers => :any, :methods => [:get, :post,:put ,:delete]
       end
     end
-    config.sites = ""
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
