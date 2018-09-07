@@ -12,16 +12,12 @@ module Api::V1
     def sign_in
       @user =  User.find_or_create_by(email:params[:users][:user_name] , password:params[:users][:password] )
       sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
-      sites.session.authenticate   "#{params[:users][:user_name]}", "#{params[:users][:password]}"
-      list = sites.list('vyzr-test')
-      @user.create_list(list.title)
-      @user.fetch_items(list)
-      if @user.save
-         render json: {success: true , data: @user}
-       else
+       if sites.session.authenticate   "#{params[:users][:user_name]}", "#{params[:users][:password]}"
          render json: {success: true , error => "User Name or Email doesn't Exist"}
+       else
+         render json: {success: true , data: @user}
+       end
       end
-    end
 
     def show
       render json: {success: true , data: @user }
