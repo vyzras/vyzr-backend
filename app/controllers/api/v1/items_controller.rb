@@ -15,6 +15,19 @@ module Api::V1
       render json: @items
     end
 
+    def create
+      sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
+      sites.session.authenticate   @current_user.email, @current_user.password
+      list = sites.list('vyzr-test')
+      begin
+        list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
+      rescue Sharepoint::SPException => e
+        render json: "Sharepoint complained about something: #{e.message}"
+      end
+       @current_user.fetch_items(list)
+      render json: {success: true , data: Item.last}
+    end
+
     def update
       sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
       sites.session.authenticate   @current_user.email, @current_user.password
@@ -25,7 +38,7 @@ module Api::V1
          render json: "Sharepoint complained about something: #{e.message}"
       end
         a =list.get_item(@items.item_uri)
-       render :json =>{ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}
+       render :json=>  {success: true , data: {ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}}
     end
 
 

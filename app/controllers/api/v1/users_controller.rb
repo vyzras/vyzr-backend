@@ -17,7 +17,7 @@ module Api::V1
       @user.create_list(list.title)
       @user.fetch_items(list)
       if @user.save
-         render json: @user
+         render json: {success: true , data: @user}
        else
          render json: @user.errors.full_messages.to_sentence
       end
