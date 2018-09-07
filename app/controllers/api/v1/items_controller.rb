@@ -46,7 +46,6 @@ module Api::V1
       # validate = params['validationtoken']
       # render :json => validate.as_json
       #
-      debug(params)
     end
 
 
