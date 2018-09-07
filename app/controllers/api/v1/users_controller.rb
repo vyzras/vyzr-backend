@@ -6,7 +6,7 @@ module Api::V1
 
     def index
      @user = User.all
-      render json: @user
+     render json: {success: true , data: @user }
     end
 
     def sign_in
@@ -24,7 +24,7 @@ module Api::V1
     end
 
     def show
-     render json: @current_user
+      render json: {success: true , data: @user }
     end
 
 

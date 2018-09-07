@@ -7,12 +7,12 @@ module Api::V1
 
     def index
       @items = Item.all
-      render json: @items
+      render json: {success: true , data: @items }
     end
 
 
     def show
-      render json: @items
+      render json: {success: true , data: @items }
     end
 
     def create
