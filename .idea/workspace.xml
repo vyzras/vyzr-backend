@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb" afterDir="false" />
-    </list>
+    <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
     <ignored path="$PROJECT_DIR$/public/system/" />
@@ -41,11 +39,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sharepoint-session.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sharepoint-session.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+            <state relative-caret-position="-735">
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -54,7 +52,16 @@
         <entry file="file://$PROJECT_DIR$/db/migrate/20180907133106_add_more_column_in_user_field.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+              <caret line="2" selection-start-line="2" selection-end-line="3" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="20180907151349_add_user_field.rb" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20180907151349_add_user_field.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -126,6 +133,7 @@
         <option value="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb" />
+        <option value="$PROJECT_DIR$/db/migrate/20180907151349_add_user_field.rb" />
       </list>
     </option>
   </component>
@@ -164,13 +172,13 @@
             <path>
               <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
               <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="sharepoint" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+              <item name="migrate" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -374,7 +382,7 @@
       <option name="presentableId" value="Default" />
       <updated>1534497504309</updated>
       <workItem from="1534497505804" duration="51982000" />
-      <workItem from="1536233335578" duration="27968000" />
+      <workItem from="1536233335578" duration="28295000" />
     </task>
     <servers />
   </component>
@@ -384,7 +392,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79950000" />
+    <option name="totallyTimeSpent" value="80277000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -424,13 +432,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/boot.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/application_record.rb">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -648,13 +649,6 @@
     <entry file="file://$PROJECT_DIR$/config/environment.rb">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20180907133106_add_more_column_in_user_field.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -678,8 +672,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="-735">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20180907133106_add_more_column_in_user_field.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="3" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20180907151349_add_user_field.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="44" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
         </state>
       </provider>
     </entry>
