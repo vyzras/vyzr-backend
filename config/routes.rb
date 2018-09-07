@@ -6,6 +6,8 @@ Rails.application.routes.draw do
         resources :users
         match 'sign_in', to: "users#sign_in" , as: :sharepoint_login , via: [:get, :post]
         resources :items
+        match 'updated_list', to: "items#updated_list" , as: :update_webhook , via: [:get, :post]
+
       end
     end
 

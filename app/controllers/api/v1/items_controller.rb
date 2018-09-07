@@ -26,10 +26,12 @@ module Api::V1
       end
         a =list.get_item(@items.item_uri)
        render :json =>{ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}
-
     end
 
 
+    def updated_list
+
+    end
 
     def destroy
 
