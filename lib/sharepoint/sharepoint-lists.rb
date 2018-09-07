@@ -89,6 +89,10 @@ module Sharepoint
       @site.query :get, "#{__metadata['id']}/ItemCount"
     end
 
+    def get_item update_uri
+      @site.query :get , update_uri
+    end
+
     def add_item attributes
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name
@@ -98,8 +102,7 @@ module Sharepoint
     def update_item attributes, update_uri
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      puts attributes.to_json
-      # @site.query :post, update_uri, attributes.to_json
+      @site.query_update :post, update_uri, attributes.to_json
     end
 
     def add_folder path, attributes

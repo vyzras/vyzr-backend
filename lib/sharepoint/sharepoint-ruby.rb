@@ -73,6 +73,41 @@ module Sharepoint
         curl.headers["Accept"]          = "application/json;odata=verbose"
         if method != :get
           curl.headers["Content-Type"]    = curl.headers["Accept"]
+          curl.headers["X-HTTP-Method"]    = curl.headers["Accept"]
+          curl.headers["X-RequestDigest"] = form_digest unless @getting_form_digest == true
+        end
+        curl.verbose = @verbose
+        @session.send :curl, curl unless not @session.methods.include? :curl
+        block.call curl           unless block.nil?
+      end
+
+
+      unless skip_json || (result.body_str.nil? || result.body_str.empty?)
+        begin
+          data = JSON.parse result.body_str
+          raise Sharepoint::SPException.new data, uri, body unless data['error'].nil?
+          make_object_from_response data
+        rescue JSON::ParserError => e
+          raise Exception.new("Exception with body=#{body}, e=#{e.inspect}, #{e.backtrace.inspect}, response=#{result.body_str}")
+        end
+      else
+        result.body_str
+      end
+    end
+
+
+
+    def query_update method, uri, body = nil, skip_json=false, &block
+      uri        = if uri =~ /^http/ then uri else api_path(uri) end
+      arguments  = [ uri ]
+      arguments << body if method != :get
+      result = Curl::Easy.send "http_#{method}", *arguments do |curl|
+        curl.headers["Cookie"]          = @session.cookie
+        curl.headers["Accept"]          = "application/json;odata=verbose"
+        if method != :get
+          curl.headers["Content-Type"]    = curl.headers["Accept"]
+          curl.headers["X-HTTP-Method"]    = 'MERGE'
+          curl.headers["If-Match"]    = '*'
           curl.headers["X-RequestDigest"] = form_digest unless @getting_form_digest == true
         end
         curl.verbose = @verbose
@@ -92,6 +127,8 @@ module Sharepoint
         result.body_str
       end
     end
+
+
 
     def make_object_from_response data
       if data['d']['results'].nil?

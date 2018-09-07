@@ -16,7 +16,6 @@ module Api::V1
       list = sites.list('vyzr-test')
       @user.create_list(list.title)
       @user.fetch_items(list)
-      # list.update_item({Status: "Resolved"}, url)
       if @user.save
          render json: @user
        else

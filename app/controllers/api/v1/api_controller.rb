@@ -4,6 +4,7 @@ module Api::V1
   class ApiController < ApplicationController
     # Generic API stuff here
     include ActionController::HttpAuthentication::Token::ControllerMethods
+    require 'sharepoint/sharepoint-ruby'
 
     before_action :authenticate
 

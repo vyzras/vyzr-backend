@@ -1,7 +1,5 @@
 class User < ApplicationRecord
 
-  #### ASSOCIATIONS ####
-  has_many :items
 
 
   # Callbacks
@@ -32,10 +30,10 @@ class User < ApplicationRecord
   ## fetch items in list
   def fetch_items(list)
       items =  list.items
-      items.each.with_index do |item,index|
-        a = self.items.find_or_create_by(title: item.data["Title"].to_s, description:item.data["vpts"].to_s,image_url: item.data["image"].to_s ,status:item.data["Status"].humanize, author_id:item.data["AuthorId"].to_s,editor_id:item.data["EditorId"].to_s,item_uri: item.data['__metadata']['uri'])
+      items.each do |i|
+        a = Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'])
           if a.errors.any?
-           return a.errors.full_message
+            puts a.errors.full_messages
           end
         end
       end
