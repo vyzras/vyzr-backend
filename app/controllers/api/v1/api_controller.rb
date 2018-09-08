@@ -5,19 +5,46 @@ module Api::V1
     # Generic API stuff here
     include ActionController::HttpAuthentication::Token::ControllerMethods
     require 'sharepoint/sharepoint-ruby'
+    require 'sharepoint/sharepoint-session'
 
+    ### Exception Handling ######
+    rescue_from Sharepoint::Session::AuthenticationFailed, with: :show_response_error
+    rescue_from Sharepoint::Session::UnknownAuthenticationError, with: :show_response_error
+    rescue_from Sharepoint::SPException, with: :show_response_error
+
+
+    ##### Exception Handling Method #########
+    def show_response_error(exception)
+      render json: { error: exception.message }, status: :not_found
+    end
+
+
+    ######## call Back ##############
     before_action :authenticate
 
-      def authenticate
-        authenticate_token || render_unauthorized
-      end
 
-      def authenticate_token
-        authenticate_with_http_token do |token, options|
-          @current_user = User.find_by(api_key: token)
+
+
+
+    ##### Authentication API ###############
+        def authenticate
+          authenticate_token || render_unauthorized
         end
-      end
 
+        def authenticate_token
+          authenticate_with_http_token do |token, options|
+            @current_user = User.find_by(api_key: token)
+          end
+        end
+
+
+        def render_unauthorized(realm = "Application")
+          self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+          render json: "There is not Authentication Token", status: :unauthorized
+        end
+
+
+    ############## SharePoint Authentication #################
     def create_share_point_user
         site_name=  params[:users][:server_url]
         a = site_name.split('.com/')
@@ -35,23 +62,18 @@ module Api::V1
         end
     end
 
-
-      def render_unauthorized(realm = "Application")
-        self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-        render json: 'Bad credentials', status: :unauthorized
-      end
-
-    def fetch_items(list)
-      items =  list.items
-      items.each do |i|
-        a = Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"])
-        if a.errors.any?
-          puts a.errors.full_messages
+    ############## SharePoint List Fetching #################
+        def fetch_items(list)
+          items =  list.items
+          items.each do |i|
+            a = Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"])
+            if a.errors.any?
+              puts a.errors.full_messages
+            end
+          end
         end
       end
-    end
-  #
-  end
+
 
 
 
