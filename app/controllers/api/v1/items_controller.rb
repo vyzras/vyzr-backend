@@ -6,7 +6,7 @@ module Api::V1
     before_action :set_item
 
     def index
-      @items = @current_user.items
+      @items = Item.all
       render json: {success: true , data: @items }
     end
 
@@ -16,23 +16,25 @@ module Api::V1
     end
 
     def create
-         site_name=  @current_user.server_url
+         @user = User.find_by(id: @current_user)
+         site_name=  @user.server_url
          a = site_name.split('.com/')
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-         sites.session.authenticate   @current_user.email, @current_user.password
-         list = sites.list(@current_user.list_name)
+         sites.session.authenticate   @user.email, @user.password
+         list = sites.list(@user.list_name)
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
-         @current_user.fetch_items(list)
+         @user.fetch_items(list)
          render json: {success: true , data: Item.last}
         end
 
 
     def update
-      site_name=  @current_user.server_url
+      @user = User.find_by(id: @current_user)
+      site_name=  @user.server_url
       a = site_name.split('.com/')
       sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @current_user.email, @current_user.password
-      list = sites.list(@current_user.list_name)
+      sites.session.authenticate   @user.email, @user.password
+      list = sites.list(@user.list_name)
       list_result = list.update_item({Status: params[:items][:Status]}, @items.item_uri)
         a =list.get_item(@items.item_uri)
        render :json=>  {success: true , data: {ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}}
