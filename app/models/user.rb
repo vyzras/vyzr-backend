@@ -1,22 +1,20 @@
 class User < ApplicationRecord
 
 
+  ####### Associations #########
+  has_many :user_tokens
 
   # Callbacks
-   before_save do |user| user.api_key = user.generate_api_key end
 
-   has_many :items
+  ################### Generate a unique API key
+  def generate_token
+      tokens =  SecureRandom.hex(70)
+      self.user_tokens.create(token: tokens)
 
-  # Generate a unique API key
-  def generate_api_key
-    loop do
-      token = Digest::SHA1.hexdigest([Time.now, rand].join)
-      break token unless User.exists?(api_key: token)
-    end
   end
 
 
-  ## Create List
+  #################### Create List
    def create_list (list)
      if !List.all.present?
         List.create(title:list)
@@ -26,11 +24,11 @@ class User < ApplicationRecord
   end
 
 
-  ## fetch items in list
+  ############## fetch items in list
   def fetch_items(list)
       items =  list.items
       items.each do |i|
-        a = self.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"],user_id: self.id)
+        a = Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"])
           if a.errors.any?
             puts a.errors.full_messages
           end
