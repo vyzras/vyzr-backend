@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   # Callbacks
 
-   has_many :items
 
   def generate_token
       tokens =  SecureRandom.hex(70)
