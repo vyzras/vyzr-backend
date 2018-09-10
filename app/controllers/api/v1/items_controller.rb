@@ -6,7 +6,7 @@ module Api::V1
     before_action :set_item
 
     def index
-      @items = Item.all
+      @items = @current_user.items
       render json: {success: true , data: @items }
     end
 

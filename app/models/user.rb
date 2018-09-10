@@ -5,8 +5,7 @@ class User < ApplicationRecord
   # Callbacks
    before_save do |user| user.api_key = user.generate_api_key end
 
-  ### Constants
-
+   has_many :items
 
   # Generate a unique API key
   def generate_api_key
