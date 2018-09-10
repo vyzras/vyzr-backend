@@ -24,23 +24,25 @@ module Api::V1
 
 
 
-
-
     ##### Authentication API ###############
         def authenticate
           authenticate_token || render_unauthorized
         end
 
         def authenticate_token
-          authenticate_with_http_token do |token, options|
-            @current_user = User.find_by(api_key: token)
+            authenticate_with_http_token do |token, options|
+                if user = UserToken.find_by(token: token)
+                @current_user = user.user_id
+                else
+                  return false
+                end
+            end
           end
-        end
 
 
         def render_unauthorized(realm = "Application")
-          self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-          render json: "There is not Authentication Token", status: :unauthorized
+          self.headers["WWW-Authenticate"] = %(realm="#{realm.gsub(/"/, "")}")
+          render json: {success: false , error: "User Authorization Failed , No Valid Token Present"}
         end
 
 

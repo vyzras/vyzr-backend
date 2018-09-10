@@ -1,23 +1,20 @@
 class User < ApplicationRecord
 
 
+  ####### Associations #########
+  has_many :user_tokens
 
   # Callbacks
-   before_save do |user| user.api_key = user.generate_api_key end
 
-  ### Constants
+  ################### Generate a unique API key
+  def generate_token
+      tokens =  SecureRandom.hex(70)
+      self.user_tokens.create(token: tokens)
 
-
-  # Generate a unique API key
-  def generate_api_key
-    loop do
-      token = Digest::SHA1.hexdigest([Time.now, rand].join)
-      break token unless User.exists?(api_key: token)
-    end
   end
 
 
-  ## Create List
+  #################### Create List
    def create_list (list)
      if !List.all.present?
         List.create(title:list)
@@ -27,7 +24,7 @@ class User < ApplicationRecord
   end
 
 
-  ## fetch items in list
+  ############## fetch items in list
   def fetch_items(list)
       items =  list.items
       items.each do |i|
