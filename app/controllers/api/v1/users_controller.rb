@@ -13,8 +13,15 @@ module Api::V1
       @user.server_url = params[:users][:server_url]
       @user.list_name  = params[:users][:list_name]
        if create_share_point_user
+         site_name=  params[:users][:server_url]
+         a = site_name.split('.com/')
+         sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+         sites.session.authenticate   params[:users][:user_name], params[:users][:password]
+         list = sites.list(params[:users][:list_name])
+         @user.fetch_items(list)
          @user.generate_token
          @user.save!
+         @user.list.update_attributes(guid: list.guid)
          render json: {success: true , data: { user: @user.as_json(:except => [:created_at, :updated_at,:api_key,:first_name,:last_name]) ,user_token: @user.user_tokens.last.token}}
        else
          render json: {success: false , error: @user.errors.full_messages.to_sentence }

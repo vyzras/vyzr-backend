@@ -7,13 +7,7 @@ module Api::V1
 
     def index
       @user = User.find_by(id: @current_user)
-      site_name=  @user.server_url
-      a = site_name.split('.com/')
-      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @user.email, @user.password
-      list = sites.list(@user.list_name)
-      @user.fetch_items(list)
-      @items = Item.all
+      @items = @user.list.items.all
       render json: {success: true , data: @items }
     end
 
@@ -30,7 +24,8 @@ module Api::V1
          sites.session.authenticate   @user.email, @user.password
          list = sites.list(@user.list_name)
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
-         @user.fetch_items(list)
+         lists = sites.list(@user.list_name)
+         @user.fetch_items(lists)
          render json: {success: true , data: Item.last}
         end
 
@@ -49,18 +44,35 @@ module Api::V1
 
 
     def updated_list
-      # List.all.delete_all
-      # sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
-      # sites.session.authenticate   User.first.email, User.first.password
-      # list = sites.list('vyzr-test')
-      # User.first.fetch_items(list)
+
+      if params[:validationToken].present?
+        value = params[:validationToken]
+        render :json=> value
+      else
+          resource = ""
+          params[:value].each do |d|
+          resource = d[:resource]
+          end
+          @list = List.find_by(guid:resource)
+          @user = User.find_by(id:  @list.user_id)
+          site_name=  @user.server_url
+          a = site_name.split('.com/')
+          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites.session.authenticate   @user.email, @user.password
+          list = sites.list(@user.list_name)
+           @user.fetch_items(list)
+      end
+
     end
 
 
     def subscription
-      sites =  Sharepoint::Site.new "vyzr.sharepoint.com", "sites/mobileapp"
-      sites.session.authenticate   User.first.email, User.first.password
-      list = sites.list('vyzr-test')
+      @user = User.find_by(id: @current_user)
+      site_name=  @user.server_url
+      a = site_name.split('.com/')
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      sites.session.authenticate   @user.email, @user.password
+      list = sites.list(@user.list_name)
       url = list.data["__metadata"]["uri"]
       list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list')
     end

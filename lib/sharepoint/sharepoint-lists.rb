@@ -99,12 +99,12 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
-    def create_subscription notificationUrl , uri
+    def create_subscription  uri, notificationUrl
       attributes ||= Hash.new
-      attributes['resource'] ||= notificationUrl
-      attributes['notificationUrl'] ||= uri
-      attributes['expirationDateTime'] ||= Time.now + 1.month
-        puts @site.subscribtion :post, notificationUrl+'/subscriptions', attributes.to_json
+      attributes['resource'] ||= uri
+      attributes['notificationUrl'] ||= notificationUrl
+      attributes['expirationDateTime'] ||= Time.now + 5.month
+        puts @site.subscribtion :post, uri+'/subscriptions', attributes.to_json
     end
 
     def update_item attributes, update_uri

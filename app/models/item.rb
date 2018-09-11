@@ -1,8 +1,10 @@
 class Item < ApplicationRecord
 
 
-  #####Validation###
+  ###### ASSOCIATION ########
+  belongs_to :list
 
-  validates :title ,uniqueness: true
+  #####Validation###
+  # validates :title ,uniqueness: true , on: :create
 
 end
