@@ -25,7 +25,7 @@ module Api::V1
          list = sites.list(@user.list_name)
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
          lists = sites.list(@user.list_name)
-         @user.fetch_items(lists)
+         fetch_items(lists,@user)
          render json: {success: true , data: Item.last}
         end
 
@@ -60,7 +60,7 @@ module Api::V1
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
           sites.session.authenticate   @user.email, @user.password
           list = sites.list(@user.list_name)
-           @user.fetch_items(list)
+          fetch_items(lists,@user)
       end
 
     end
@@ -81,7 +81,15 @@ module Api::V1
 
     end
 
-
+    def fetch_items(list,user)
+      items =  list.items
+      items.each do |i|
+        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["vpts"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"].humanize, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"])
+        if a.errors.any?
+          puts a.errors.full_messages
+        end
+      end
+    end
     def set_item
       @items = Item.find_by(id: params[:id])
     end
