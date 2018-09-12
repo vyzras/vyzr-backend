@@ -74,6 +74,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (1.2.3)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
+    carrierwave-base64 (2.7.0)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
     case_transform (0.2)
       activesupport
     childprocess (0.9.0)
@@ -200,6 +207,8 @@ DEPENDENCIES
   capistrano-rails-console
   capistrano-rvm
   capybara (~> 2.13.0)
+  carrierwave (~> 1.0)
+  carrierwave-base64
   curb
   listen (>= 3.0.5, < 3.2)
   mysql2

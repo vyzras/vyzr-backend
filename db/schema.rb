@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911054529) do
+ActiveRecord::Schema.define(version: 20180912091051) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180911054529) do
     t.string "api_key"
     t.string "server_url"
     t.string "list_name"
+    t.boolean "subscribed", default: false
   end
 
 end

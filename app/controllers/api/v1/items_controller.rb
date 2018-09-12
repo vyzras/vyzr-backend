@@ -66,17 +66,6 @@ module Api::V1
     end
 
 
-    def subscription
-      @user = User.find_by(id: @current_user)
-      site_name=  @user.server_url
-      a = site_name.split('.com/')
-      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @user.email, @user.password
-      list = sites.list(@user.list_name)
-      url = list.data["__metadata"]["uri"]
-      list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list')
-    end
-
     def destroy
 
     end
@@ -95,8 +84,6 @@ module Api::V1
     def set_item
       @items = Item.find_by(id: params[:id])
     end
-
-
   end
 
 end

@@ -4,7 +4,11 @@ class Item < ApplicationRecord
   ###### ASSOCIATION ########
   belongs_to :list
 
-  #####Validation###
-  # validates :title ,uniqueness: true , on: :create
+
+  mount_base64_uploader :image_url, ImageUploader
+
 
 end
+
+
+
