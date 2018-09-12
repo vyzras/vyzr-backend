@@ -54,7 +54,6 @@ module Api::V1
           resource = d[:resource]
           end
           @list = List.find_by(guid:resource)
-          puts @list
           @user = User.find_by(id:  @list.user_id)
           site_name=  @user.server_url
           a = site_name.split('.com/')
