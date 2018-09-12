@@ -60,7 +60,7 @@ module Api::V1
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
           sites.session.authenticate   @user.email, @user.password
           list = sites.list(@user.list_name)
-          fetch_items(lists,@user)
+          fetch_items(list,@user)
       end
 
     end
