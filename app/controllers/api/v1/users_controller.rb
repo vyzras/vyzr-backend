@@ -18,6 +18,7 @@ module Api::V1
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
          sites.session.authenticate   params[:users][:user_name], params[:users][:password]
          list = sites.list(params[:users][:list_name])
+         @user.list_user
          @user.fetch_items(list)
          @user.generate_token
          @user.save!

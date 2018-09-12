@@ -6,8 +6,6 @@ class User < ApplicationRecord
   has_one  :list
 
   # Callbacks
-  after_save :list_user
-
   def generate_token
       tokens =  SecureRandom.hex(70)
       self.user_tokens.create(token: tokens)

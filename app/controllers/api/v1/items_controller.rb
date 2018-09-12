@@ -90,6 +90,7 @@ module Api::V1
         end
       end
     end
+
     def set_item
       @items = Item.find_by(id: params[:id])
     end
