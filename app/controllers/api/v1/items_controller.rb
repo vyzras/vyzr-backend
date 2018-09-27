@@ -24,7 +24,11 @@ module Api::V1
          sites.session.authenticate   @user.email, @user.password
          list = sites.list(@user.list_name)
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],anonymous: params[:items][:anonymous],:image_url => params[:items][:image])
-         list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}","image" => "http://vyzrbackend.mashup.li/"+@list.image_url.url)
+         if @list.image_url.url.present?
+         list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}","image" => "http://vyzrbackend.mashup.li/"+ @list.image_url.url)
+         else
+         list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
+         end
          lists = sites.list(@user.list_name)
          fetch_items(lists,@user)
          render json: {success: true , data: Item.last}
