@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -37,8 +35,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="27" column="173" selection-start-line="27" selection-start-column="173" selection-end-line="27" selection-end-column="173" />
+            <state relative-caret-position="106">
+              <caret line="27" column="220" selection-start-line="27" selection-start-column="220" selection-end-line="27" selection-end-column="220" />
             </state>
           </provider>
         </entry>
@@ -427,7 +425,7 @@
       <workItem from="1536495394829" duration="781000" />
       <workItem from="1537948416747" duration="1087000" />
       <workItem from="1538045148555" duration="4066000" />
-      <workItem from="1538476676943" duration="4434000" />
+      <workItem from="1538476676943" duration="5004000" />
     </task>
     <servers />
   </component>
@@ -437,7 +435,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139000000" />
+    <option name="totallyTimeSpent" value="139570000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -813,8 +811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="27" column="173" selection-start-line="27" selection-start-column="173" selection-end-line="27" selection-end-column="173" />
+        <state relative-caret-position="106">
+          <caret line="27" column="220" selection-start-line="27" selection-start-column="220" selection-end-line="27" selection-end-column="220" />
         </state>
       </provider>
     </entry>
