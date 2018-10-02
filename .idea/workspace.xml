@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -23,20 +25,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="users_controller.rb" pinned="false" current-in-tab="false">
+      <file leaf-file-name="users_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="825">
-              <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
+            <state relative-caret-position="343">
+              <caret line="58" column="387" selection-start-line="58" selection-start-column="387" selection-end-line="58" selection-end-column="387" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
+      <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="27" column="220" selection-start-line="27" selection-start-column="220" selection-end-line="27" selection-end-column="220" />
+            <state relative-caret-position="355">
+              <caret line="82" column="387" selection-start-line="82" selection-start-column="387" selection-end-line="82" selection-end-column="387" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="20181002140155_add_complete_field_in_items.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/migrate/20181002140155_add_complete_field_in_items.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="2" column="43" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -53,7 +64,7 @@
       <file leaf-file-name="api_controller.rb" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-583">
+            <state relative-caret-position="90">
               <caret line="6" column="24" selection-start-line="6" selection-end-line="7" />
             </state>
           </provider>
@@ -128,12 +139,13 @@
         <option value="$PROJECT_DIR$/db/migrate/20180912091051_change_in_user_table.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" />
         <option value="$PROJECT_DIR$/config/environments/development.rb" />
         <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/app/models/item.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" />
+        <option value="$PROJECT_DIR$/db/migrate/20181002140155_add_complete_field_in_items.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" />
       </list>
     </option>
   </component>
@@ -147,10 +159,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="856" />
-    <option name="y" value="23" />
-    <option name="width" value="424" />
-    <option name="height" value="721" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -196,6 +206,17 @@
               <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+              <item name="migrate" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -425,7 +446,7 @@
       <workItem from="1536495394829" duration="781000" />
       <workItem from="1537948416747" duration="1087000" />
       <workItem from="1538045148555" duration="4066000" />
-      <workItem from="1538476676943" duration="5004000" />
+      <workItem from="1538476676943" duration="6288000" />
     </task>
     <servers />
   </component>
@@ -435,7 +456,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="139570000" />
+    <option name="totallyTimeSpent" value="140854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -447,8 +468,8 @@
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="19" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="16" visible="true" weight="0.49931034" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28756058" />
+      <window_info anchor="bottom" id="Terminal" order="16" weight="0.49931034" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28756058" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -497,13 +518,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.rvm/rubies/ruby-2.1.1/lib/ruby/2.1.0/net/http.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="1179" column="8" selection-start-line="1179" selection-start-column="8" selection-end-line="1179" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-types.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="690">
@@ -788,20 +802,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="55" column="8" selection-start-line="55" selection-start-column="8" selection-end-line="55" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-583">
-          <caret line="6" column="24" selection-start-line="6" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -809,10 +809,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="24" selection-start-line="6" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="27" column="220" selection-start-line="27" selection-start-column="220" selection-end-line="27" selection-end-column="220" />
+        <state relative-caret-position="355">
+          <caret line="82" column="387" selection-start-line="82" selection-start-column="387" selection-end-line="82" selection-end-column="387" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20181002140155_add_complete_field_in_items.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="43" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="58" column="387" selection-start-line="58" selection-start-column="387" selection-end-line="58" selection-end-column="387" />
         </state>
       </provider>
     </entry>
