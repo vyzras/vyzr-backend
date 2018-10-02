@@ -33,7 +33,7 @@ module Api::V1
          # end
          lists = sites.list(@user.list_name)
          fetch_items(lists,@user)
-          a = Base64.encode64(params[:items][:image])
+          a =(params[:items][:image])
          list.add_attachment({data: a}, Item.last.item_uri)
          render json: {success: true , data: Item.last}
         end
