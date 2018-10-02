@@ -25,7 +25,7 @@ module Api::V1
          list = sites.list(@user.list_name)
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],anonymous: params[:items][:anonymous],:image_url => params[:items][:image])
          if @list.image_url.url.present?
-         list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}","image" => "http://vyzrbackend.mashup.li/"+ @list.image_url.url)
+         list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}","images" =>{"Url"=> @list.image_url.url,"Description"=> "Upload By Mobile"} )
          else
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
          end

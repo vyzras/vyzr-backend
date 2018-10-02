@@ -99,6 +99,7 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
+
     def create_subscription  uri, notificationUrl
       attributes ||= Hash.new
       attributes['resource'] ||= uri
