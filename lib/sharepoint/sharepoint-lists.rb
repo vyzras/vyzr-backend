@@ -117,7 +117,7 @@ module Sharepoint
     def update_item attributes, update_uri
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      @site.attachmentquery_update :post, update_uri, attributes.to_json
+      @site.update :post, update_uri, attributes.to_json
     end
 
     def add_folder path, attributes
