@@ -26,32 +26,24 @@ module Api::V1
          sites.session.authenticate   @user.email, @user.password
          list = sites.list(@user.list_name)
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],anonymous: params[:items][:anonymous],:image_url => params[:items][:image])
-         # if @list.image_url.url.present?
-         # list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}","images" =>{"Url"=> "http://vyzrbackend.mashup.li/" + @list.image_url.url,"Description"=> "Upload By Mobile"} )
-         # else
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "vpts"=> "#{params[:items][:description]}","anonymous"=> "#{params[:items][:anonymous]}")
-         # end
-         lists = sites.list(@user.list_name)
-         fetch_items(lists,@user)
-          a =(params[:items][:image])
-         list.add_attachment({data: a}, Item.last.item_uri)
+         fetch_items(list,@user)
+          a =(@list.image_url.read)
+         list.add_attachment(a, Item.last.item_uri)
          render json: {success: true , data: Item.last}
         end
 
 
-    def update_user
+    def update
       @user = User.find_by(id: @current_user)
       site_name=  @user.server_url
       a = site_name.split('.com/')
       sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
       sites.session.authenticate   @user.email, @user.password
       list = sites.list(@user.list_name)
-
-
-      list.add_attachment({data: a}, @items.item_uri)
-      # list_result = list.update_item({Status: params[:items][:Status]}, @items.item_uri)
-      #   a =list.get_item(@items.item_uri)
-      #  render :json=>  {success: true , data: {ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}}
+      list_result = list.update_item({Status: params[:items][:Status]}, @items.item_uri)
+        a =list.get_item(@items.item_uri)
+       render :json=>  {success: true , data: {ID: a.data['ID'],Title: a.data['Title'],Status: a.data['Status'], Description:  a.data['vpts']}}
     end
 
 

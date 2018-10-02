@@ -20,6 +20,8 @@ module Api::V1
     end
 
 
+
+
     ######## call Back ##############
     before_action :authenticate
 

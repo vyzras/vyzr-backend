@@ -1,5 +1,6 @@
 require 'curb'
 require 'json'
+require "net/http"
 require 'sharepoint/sharepoint-session'
 require 'sharepoint/sharepoint-object'
 require 'sharepoint/sharepoint-types'
@@ -153,6 +154,7 @@ module Sharepoint
       arguments  = [ uri ]
       arguments << body if method != :get
       result = Curl::Easy.send "http_#{method}", *arguments do |curl|
+        # curl.multipart_form_post = true
         curl.headers["Cookie"]          = @session.cookie
         curl.headers["Accept"]          = "application/json;odata=verbose"
         if method != :get

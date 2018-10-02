@@ -109,15 +109,15 @@ module Sharepoint
     end
 
     def add_attachment( attributes ,update_uri)
-      attributes['__metadata']         ||= Hash.new
-      attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      @site.query_update :post, update_uri + "/AttachmentFiles/add(FileName='" + ('a'..'z').to_a.shuffle[0,8].join + "')", attributes.to_json
+      #attributes['__metadata']         ||= Hash.new
+      # attributes['__metadata']['type'] ||= list_item_entity_type_full_name
+      @site.attachment :post, update_uri + "/AttachmentFiles/add(FileName='" + ('a'..'z').to_a.shuffle[0,8].join + ".png')",attributes
     end
 
     def update_item attributes, update_uri
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      @site.attachment :post, update_uri, attributes.to_json
+      @site.attachmentquery_update :post, update_uri, attributes.to_json
     end
 
     def add_folder path, attributes
