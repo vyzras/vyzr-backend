@@ -99,6 +99,15 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
+    def add_second_list attributes
+      attributes['__metadata']         ||= Hash.new
+      attributes['__metadata']['type'] ||= list_item_entity_type_full_name
+      @site.query_second :post, item_uri, attributes.to_json
+    end
+
+
+
+
 
     def create_subscription  uri, notificationUrl
       attributes ||= Hash.new

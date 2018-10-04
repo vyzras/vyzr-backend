@@ -26,7 +26,11 @@ module Api::V1
          sites.session.authenticate   @user.email, @user.password
          list = sites.list(@user.list_name)
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
+         if @user.server_url == "vyzr.sharepoint.com/sites/lab/imp"
+          list_result = list.add_second_list("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
+         else
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
+         end
          fetch_items(list,@user)
          if @list.image_url.present?
                a =(@list.image_url.read)
@@ -73,7 +77,7 @@ module Api::V1
 
     def destroy
 
-    end
+    end                            
 
     def fetch_items(list,user)
       user.list.items.all.delete_all
