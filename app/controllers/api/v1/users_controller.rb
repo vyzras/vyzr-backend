@@ -56,7 +56,7 @@ module Api::V1
     def fetch_items(list,user)
       items =  list.items
       items.each do |i|
-        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"], author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'], user_name: i.data["user_name"],anonymous: i.data["anonymous"],complete_percentage: i.data["PercentComplete"])
+        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s,image_url: i.data["image"].to_s ,status:i.data["Status"], author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"])
         if a.errors.any?
           puts a.errors.full_messages
         end
