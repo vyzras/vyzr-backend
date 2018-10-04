@@ -28,8 +28,10 @@ module Api::V1
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
          list_result = list.add_item("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
          fetch_items(list,@user)
-         a =(@list.image_url.read)
-         list.add_attachment(a, Item.last.item_uri)
+         if @list.image_url.present?
+               a =(@list.image_url.read)
+               list.add_attachment(a, Item.last.item_uri)
+         end
          render json: {success: true , data: Item.last}
         end
 
