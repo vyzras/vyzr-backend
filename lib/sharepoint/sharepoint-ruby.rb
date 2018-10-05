@@ -196,7 +196,10 @@ module Sharepoint
       end
     end
 
-    def attachment method, uri, body = nil, skip_json=false, &block
+    def attachment method, uri,site, body = nil, skip_json=false, &block
+      if site == nil
+        site = "mobileapp"
+      end
       uri        = if uri =~ /^http/ then uri else api_path(uri) end
       arguments  = [ uri ]
       arguments << body if method != :get
@@ -208,7 +211,7 @@ module Sharepoint
           curl.headers["Content-Type"]    = curl.headers["Accept"]
           curl.headers["X-HTTP-Method"]    = 'POST'
           curl.headers["If-Match"]    = '*'
-          curl.headers["X-RequestDigest"] = form_digest unless @getting_form_digest == true
+          curl.headers["X-RequestDigest"] = form_digest_second(site) unless @getting_form_digest == true
         end
         curl.verbose = @verbose
         @session.send :curl, curl unless not @session.methods.include? :curl

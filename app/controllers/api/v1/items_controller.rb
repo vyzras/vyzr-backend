@@ -43,7 +43,7 @@ module Api::V1
          fetch_items(list,@user)
          if @list.image_url.present?
                a =(@list.image_url.read)
-               list.add_attachment(a, Item.last.item_uri)
+               list.add_attachment(a, Item.last.item_uri ,site)
          end
          render json: {success: true , data: Item.last}
         end

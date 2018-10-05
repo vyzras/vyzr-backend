@@ -113,10 +113,10 @@ module Sharepoint
         puts @site.subscribtion :post, uri+'/subscriptions', site, attributes.to_json
     end
 
-    def add_attachment( attributes ,update_uri)
+    def add_attachment( attributes ,update_uri ,site)
       #attributes['__metadata']         ||= Hash.new
       # attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      @site.attachment :post, update_uri + "/AttachmentFiles/add(FileName='" + ('a'..'z').to_a.shuffle[0,8].join + ".png')",attributes
+      @site.attachment :post, update_uri + "/AttachmentFiles/add(FileName='" + ('a'..'z').to_a.shuffle[0,8].join + ".png')",site,attributes
     end
 
     def update_item attributes, update_uri
