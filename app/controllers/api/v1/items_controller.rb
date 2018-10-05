@@ -9,6 +9,12 @@ module Api::V1
 
     def index
       @user = User.find_by(id: @current_user)
+      site_name=  @user.server_url
+      a = site_name.split('.com/')
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      sites.session.authenticate   @user.email, @user.password
+      list = sites.list(@user.list_name)
+      fetch_items(list,@user)
       @items = @user.list.items.all
       render json: {success: true , data: @items }
     end
