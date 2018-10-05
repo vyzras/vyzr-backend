@@ -89,8 +89,8 @@ module Sharepoint
       @site.query :get, "#{__metadata['id']}/ItemCount"
     end
 
-    def get_item update_uri
-      @site.query :get , update_uri
+    def get_item update_uri ,sites
+      @site.query_second :get ,sites, update_uri
     end
 
     def add_item attributes
@@ -99,22 +99,18 @@ module Sharepoint
       @site.query :post, item_uri, attributes.to_json
     end
 
-    def add_second_list attributes
+    def add_second_list attributes ,sites
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name
-      @site.query_second :post, item_uri, attributes.to_json
+      @site.query_second :post, item_uri, sites, attributes.to_json
     end
 
-
-
-
-
-    def create_subscription  uri, notificationUrl
+    def create_subscription  uri, notificationUrl ,site
       attributes ||= Hash.new
       attributes['resource'] ||= uri
       attributes['notificationUrl'] ||= notificationUrl
       attributes['expirationDateTime'] ||= Time.now + 5.month
-        puts @site.subscribtion :post, uri+'/subscriptions', attributes.to_json
+        puts @site.subscribtion :post, uri+'/subscriptions', site, attributes.to_json
     end
 
     def add_attachment( attributes ,update_uri)

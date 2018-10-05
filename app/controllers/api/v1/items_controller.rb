@@ -25,12 +25,15 @@ module Api::V1
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
          sites.session.authenticate   @user.email, @user.password
          list = sites.list(@user.list_name)
+         b= a[1].split('/')
+         site = b[1]
+         puts site
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
-         if @user.server_url == "vyzr.sharepoint.com/sites/lab/imp"
-          list_result = list.add_second_list("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
-         else
-         list_result = list.add_item("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
-         end
+         # if @user.server_url == "vyzr.sharepoint.com/sites/lab/imp"
+          list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"} ,site)
+         # else
+         # list_result = list.add_item("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
+         # end
          fetch_items(list,@user)
          if @list.image_url.present?
                a =(@list.image_url.read)
@@ -55,22 +58,22 @@ module Api::V1
 
     def updated_list
 
-      if params[:validationToken].present?
-                                          return    params[:validationToken]
-      else
-          resource = ""
-          params[:value].each do |d|
-          resource = d[:resource]
-          end
-          @list = List.find_by(guid:resource)
-          @user = User.find_by(id:  @list.user_id)
-          site_name=  @user.server_url
-          a = site_name.split('.com/')
-          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-          sites.session.authenticate   @user.email, @user.password
-          list = sites.list(@user.list_name)
-          fetch_items(list,@user)
-      end
+      # if params[:validationToken].present?
+        render json:  params[:validationToken]
+      # else
+      #     resource = ""
+      #     params[:value].each do |d|
+      #     resource = d[:resource]
+      #     end
+      #     @list = List.find_by(guid:resource)
+      #     @user = User.find_by(id:  @list.user_id)
+      #     site_name=  @user.server_url
+      #     a = site_name.split('.com/')
+      #     sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      #     sites.session.authenticate   @user.email, @user.password
+      #     list = sites.list(@user.list_name)
+      #     fetch_items(list,@user)
+      # end
 
     end
 

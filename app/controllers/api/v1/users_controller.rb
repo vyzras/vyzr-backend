@@ -70,8 +70,11 @@ module Api::V1
         sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
         sites.session.authenticate   user.email, user.password
         list = sites.list(user.list_name)
+        b= a[1].split('/')
+        site = b[1]
         url = list.data["__metadata"]["uri"]
-        list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list')
+        binding.pry
+        list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list',site )
         user.update_attributes(subscribed:  true)
       else
         return true

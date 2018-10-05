@@ -65,10 +65,10 @@ module Sharepoint
       @web_context.form_digest_value
     end
 
-    def form_digest_second
+    def form_digest_second sites
       if @web_context.nil? or (not @web_context.is_up_to_date?)
         @getting_form_digest = true
-        @web_context         = query :post, "#{@protocol}://#{@server_url}/sites/lab/imp/_api/contextinfo"
+        @web_context         = query :post, "#{@protocol}://#{@server_url}/sites/#{sites}/_api/contextinfo"
         @getting_form_digest = false
       end
       @web_context.form_digest_value
@@ -105,7 +105,10 @@ module Sharepoint
       end
     end
 
-    def query_second method, uri, body = nil, skip_json=false, &block
+    def query_second method, uri,sites = nil, body = nil, skip_json=false, &block
+      if sites == nil
+        sites = "mobileapp"
+      end
       uri        = if uri =~ /^http/ then uri else api_path(uri) end
       arguments  = [ uri ]
       arguments << body if method != :get
@@ -115,7 +118,7 @@ module Sharepoint
         if method != :get
           curl.headers["Content-Type"]    = curl.headers["Accept"]
           curl.headers["X-HTTP-Method"]    = curl.headers["Accept"]
-          curl.headers["X-RequestDigest"] = form_digest_second unless @getting_form_digest == true
+          curl.headers["X-RequestDigest"] = form_digest_second(sites) unless @getting_form_digest == true
         end
         curl.verbose = @verbose
         @session.send :curl, curl unless not @session.methods.include? :curl
@@ -136,7 +139,10 @@ module Sharepoint
     end
 
 
-    def subscribtion method, uri, body = nil, skip_json=false, &block
+    def subscribtion method, uri,sites = nil, body = nil, skip_json=false, &block
+      if sites == nil
+        sites = "mobileapp"
+      end
       uri        = if uri =~ /^http/ then uri else api_path(uri) end
       arguments  = [ uri ]
       arguments << body if method != :get
@@ -145,7 +151,7 @@ module Sharepoint
         curl.headers["Accept"]          = "application/json"
         if method != :get
           curl.headers["Content-Type"]  = curl.headers["Accept"]
-          curl.headers["X-RequestDigest"] = form_digest unless @getting_form_digest == true
+          curl.headers["X-RequestDigest"] = form_digest_second(sites) unless @getting_form_digest == true
         end
         curl.verbose = @verbose
         @session.send :curl, curl unless not @session.methods.include? :curl
