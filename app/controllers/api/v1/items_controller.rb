@@ -59,7 +59,7 @@ module Api::V1
     def updated_list
 
       # if params[:validationToken].present?
-        render json:  params[:validationToken]
+        return  params[:validationToken]
       # else
       #     resource = ""
       #     params[:value].each do |d|
