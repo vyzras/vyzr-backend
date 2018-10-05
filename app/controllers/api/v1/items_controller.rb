@@ -58,9 +58,9 @@ module Api::V1
 
     def updated_list
 
-      if params[:validationToken].present?
-        render :json=>  params[:validationToken]
-      else
+      # if params[:validationToken].present?
+      #   render :json=>  params[:validationToken]
+      # else
           resource = ""
           params[:value].each do |d|
           resource = d[:resource]
@@ -73,7 +73,7 @@ module Api::V1
           sites.session.authenticate   @user.email, @user.password
           list = sites.list(@user.list_name)
           fetch_items(list,@user)
-      end
+      # end
 
     end
 
