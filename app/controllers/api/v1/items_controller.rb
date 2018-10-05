@@ -33,17 +33,12 @@ module Api::V1
          list = sites.list(@user.list_name)
          b= a[1].split('/')
          site = b[1]
-         puts site
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
-         # if @user.server_url == "vyzr.sharepoint.com/sites/lab/imp"
-          list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"} ,site)
-         # else
-         # list_result = list.add_item("Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}")
-         # end
+          list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
          fetch_items(list,@user)
          if @list.image_url.present?
-               a =(@list.image_url.read)
-               list.add_attachment(a, Item.last.item_uri ,site)
+           a =(@list.image_url.read)
+           list.add_attachment(a, @user.list.items.last.item_uri ,site)
          end
          render json: {success: true , data: Item.last}
         end
