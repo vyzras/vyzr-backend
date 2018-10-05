@@ -64,7 +64,7 @@ module Api::V1
     end
 
     def subscription(user)
-      if user.subscribed == true
+      if user.subscribed == false
         site_name=  user.server_url
         a = site_name.split('.com/')
         sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -73,7 +73,6 @@ module Api::V1
         b= a[1].split('/')
         site = b[1]
         url = list.data["__metadata"]["uri"]
-        binding.pry
         list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list',site )
         user.update_attributes(subscribed:  true)
       else

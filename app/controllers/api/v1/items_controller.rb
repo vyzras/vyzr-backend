@@ -58,22 +58,22 @@ module Api::V1
 
     def updated_list
 
-      # if params[:validationToken].present?
-        render json:  params[:validationToken]
-      # else
-      #     resource = ""
-      #     params[:value].each do |d|
-      #     resource = d[:resource]
-      #     end
-      #     @list = List.find_by(guid:resource)
-      #     @user = User.find_by(id:  @list.user_id)
-      #     site_name=  @user.server_url
-      #     a = site_name.split('.com/')
-      #     sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      #     sites.session.authenticate   @user.email, @user.password
-      #     list = sites.list(@user.list_name)
-      #     fetch_items(list,@user)
-      # end
+      if params[:validationToken].present?
+        render :json=>  params[:validationToken]
+      else
+          resource = ""
+          params[:value].each do |d|
+          resource = d[:resource]
+          end
+          @list = List.find_by(guid:resource)
+          @user = User.find_by(id:  @list.user_id)
+          site_name=  @user.server_url
+          a = site_name.split('.com/')
+          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites.session.authenticate   @user.email, @user.password
+          list = sites.list(@user.list_name)
+          fetch_items(list,@user)
+      end
 
     end
 
