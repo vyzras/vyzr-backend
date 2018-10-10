@@ -81,8 +81,8 @@ module Sharepoint
     include Sharepoint::Type
     sharepoint_resource get_from_name: 'lists/getbytitle'
 
-    def find_items options = {}
-      @site.query :get, (make_item_filter options)
+    def find_items options = {}, site
+      @site.query_second :get, (make_item_filter options) ,site
     end
 
     def item_count
@@ -196,6 +196,7 @@ module Sharepoint
       end
       url
     end
+
   end
 
   class ListItem < Sharepoint::Object
