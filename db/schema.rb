@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181004112246) do
+ActiveRecord::Schema.define(version: 20181010120609) do
 
   create_table "items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20181004112246) do
     t.integer "user_id"
     t.integer "list_id"
     t.string "complete_percentage"
+    t.string "created_time"
+    t.string "updated_time"
   end
 
   create_table "lists", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

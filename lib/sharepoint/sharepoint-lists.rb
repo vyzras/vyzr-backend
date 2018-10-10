@@ -89,6 +89,10 @@ module Sharepoint
       @site.query :get, "#{__metadata['id']}/ItemCount"
     end
 
+    def get_attachment uri ,sites
+      @site.query_second :get , uri+"/AttachmentFiles" , sites
+    end
+
     def get_item update_uri ,sites
       @site.query_second :get ,sites, update_uri
     end

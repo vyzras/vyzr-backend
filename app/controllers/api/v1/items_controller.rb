@@ -21,6 +21,18 @@ module Api::V1
 
 
     def show
+      @user = User.find_by(id: @current_user)
+      site_name=  @user.server_url
+      a = site_name.split('.com/')
+      b= a[1].split('/')
+      site = b[1]
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      sites.session.authenticate   @user.email, @user.password
+      list = sites.list(@user.list_name)
+      @items = Item.find_by(id: params[:id])
+      puts @items.item_uri
+      result = list.get_attachment(@items.item_uri, site)
+      puts result.uri
       render json: {success: true , data: @items }
     end
 
@@ -87,7 +99,7 @@ module Api::V1
       user.list.items.all.delete_all
       items =  list.items
       items.each do |i|
-        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"])
+        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["created"],updated_time: i.data["modified"])
         if a.errors.any?
           puts a.errors.full_messages
         end
