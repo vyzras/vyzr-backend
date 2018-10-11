@@ -27,8 +27,16 @@ module Api::V1
        fetch_items(items,@user)
        @items = @user.list.items.all
        render json: {success: true , data: @items }
+      elsif params[:order] == "own"
+        current_login_user = sites.context_info.current_user.id
+        puts current_login_user
+        items = list.find_items({filer: "AuthorId eq #{current_login_user}"}, site)
+        fetch_items(items,@user)
+        @items = @user.list.items.all
+        render json: {success: true , data: @items }
       else
         fetch_list_items(list,@user)
+        list.get_current_user(site)
       @items = @user.list.items.all
       render json: {success: true , data: @items }
       end
@@ -65,7 +73,7 @@ module Api::V1
          site = b[1]
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
-         fetch_items(list,@user)
+         fetch_list_items(list,@user)
          if @list.image_url.present?
            a =(@list.image_url.read)
            list.add_attachment(a, @user.list.items.last.item_uri ,site)
@@ -103,7 +111,7 @@ module Api::V1
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
           sites.session.authenticate   @user.email, @user.password
           list = sites.list(@user.list_name)
-          fetch_items(list,@user)
+          fetch_list_items(list,@user)
       # end
 
     end
