@@ -8,7 +8,6 @@ module Api::V1
     # after_action :update_user     , on: [:create]
 
     def index
-      if params[:order] == "asc"
       @user = User.find_by(id: @current_user)
       site_name=  @user.server_url
       a = site_name.split('.com/')
@@ -18,44 +17,18 @@ module Api::V1
       b= a[1].split('/')
       site = b[1]
       @user.list.items.delete_all
-      items = list.find_items({orderby: "Created asc"}, site)
-      items.each do |i|
-        a = @user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
-        if a.errors.any?
-          puts a.errors.full_messages
-        end
-      end
+      if params[:order] == "asc"
+        items = list.find_items({orderby: "Created asc"}, site)
+        fetch_items(items,@user)
       @items = @user.list.items.all
       render json: {success: true , data: @items }
       elsif  params[:order] == "desc"
-       @user = User.find_by(id: @current_user)
-       site_name=  @user.server_url
-       a = site_name.split('.com/')
-       sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-       sites.session.authenticate   @user.email, @user.password
-       list = sites.list(@user.list_name)
-       b= a[1].split('/')
-       site = b[1]
-       @user.list.items.delete_all
-       items = list.find_items({orderby: "Created asc"}, site)
-       items.each do |i|
-         a = @user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
-         if a.errors.any?
-           puts a.errors.full_messages
-         end
-       end
+       items = list.find_items({orderby: "Created desc"}, site)
+       fetch_items(items,@user)
        @items = @user.list.items.all
        render json: {success: true , data: @items }
-     else
-      @user = User.find_by(id: @current_user)
-      site_name=  @user.server_url
-      a = site_name.split('.com/')
-      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @user.email, @user.password
-      list = sites.list(@user.list_name)
-      b= a[1].split('/')
-      site = b[1]
-      fetch_items(list,@user)
+      else
+        fetch_list_items(list,@user)
       @items = @user.list.items.all
       render json: {success: true , data: @items }
       end
@@ -142,14 +115,34 @@ module Api::V1
 
     def fetch_items(list,user)
       user.list.items.all.delete_all
-      items =  list.items
-      items.each do |i|
-        a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
-        if a.errors.any?
-          puts a.errors.full_messages
+      list.each do |i|
+        if i.attachment_files.present?
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
+                                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+                                            created_time: i.data["Created"],updated_time: i.data["Modified"],
+                                            attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
+        else
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
         end
       end
     end
+
+
+    def fetch_list_items(list,user)
+      user.list.items.all.delete_all
+      items =  list.items
+      items.each do |i|
+        if i.attachment_files.present?
+         user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
+                                           item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+                                           created_time: i.data["Created"],updated_time: i.data["Modified"],
+                                           attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
+        else
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
+        end
+      end
+    end
+
 
     def set_item
       @items = Item.find_by(id: params[:id])
