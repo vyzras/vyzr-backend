@@ -36,10 +36,9 @@ module Api::V1
         render json: {success: true , data: @items }
       else
         fetch_list_items(list,@user)
-        list.get_current_user(site)
-      @items = @user.list.items.all
-      render json: {success: true , data: @items }
-      end
+        @items = @user.list.items.all
+        render json: {success: true , data: @items }
+        end
     end
 
 
