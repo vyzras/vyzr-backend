@@ -30,7 +30,7 @@ module Api::V1
       elsif params[:order] == "own"
         current_login_user = sites.context_info.current_user.id
         puts current_login_user
-        items = list.find_items({filer: "AuthorId eq #{current_login_user}"}, site)
+        items = list.find_items({filter: "AuthorId eq #{current_login_user}"}, site)
         fetch_items(items,@user)
         @items = @user.list.items.all
         render json: {success: true , data: @items }
