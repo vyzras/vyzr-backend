@@ -135,6 +135,7 @@ module Api::V1
       a = site_name.split('.com/')
       b= a[1].split('/')
       site = b[1]
+      list = sites.list(@user.list_name)
       user.list.items.all.delete_all
       list.each do |i|
         if i.attachment_files.present?
