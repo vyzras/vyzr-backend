@@ -16,20 +16,29 @@ module Api::V1
       list = sites.list(@user.list_name)
       b= a[1].split('/')
       site = b[1]
+      current_login_user = sites.context_info.current_user.id
       @user.list.items.delete_all
-      if params[:order] == "asc"
-        items = list.find_items({orderby: "Created asc"}, site)
+      if params[:order] == "asc" && params[:own] == "true"
+        items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
         fetch_items(items,@user)
       @items = @user.list.items.all
       render json: {success: true , data: @items }
+      elsif  params[:order] == "asc"
+        items = list.find_items({orderby: "Created asc"}, site)
+        fetch_items(items,@user)
+        @items = @user.list.items.all
+        render json: {success: true , data: @items }
       elsif  params[:order] == "desc"
        items = list.find_items({orderby: "Created desc"}, site)
        fetch_items(items,@user)
        @items = @user.list.items.all
        render json: {success: true , data: @items }
+      elsif params[:order] == "desc" && params[:own] == "true"
+        items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
+        fetch_items(items,@user)
+        @items = @user.list.items.all
+        render json: {success: true , data: @items }
       elsif params[:order] == "own"
-        current_login_user = sites.context_info.current_user.id
-        puts current_login_user
         items = list.find_items({filter: "AuthorId eq #{current_login_user}"}, site)
         fetch_items(items,@user)
         @items = @user.list.items.all

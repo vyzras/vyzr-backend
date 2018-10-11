@@ -26,8 +26,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="368">
+              <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -409,7 +409,7 @@
       <workItem from="1537948416747" duration="1087000" />
       <workItem from="1538045148555" duration="4066000" />
       <workItem from="1538476676943" duration="36526000" />
-      <workItem from="1539159816964" duration="12134000" />
+      <workItem from="1539159816964" duration="13734000" />
     </task>
     <servers />
   </component>
@@ -419,7 +419,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="183226000" />
+    <option name="totallyTimeSpent" value="184826000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -431,7 +431,7 @@
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="19" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="16" visible="true" weight="0.6248237" />
+      <window_info anchor="bottom" id="Terminal" order="16" weight="0.6248237" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2924071" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -791,8 +791,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="368">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
         </state>
       </provider>
     </entry>
