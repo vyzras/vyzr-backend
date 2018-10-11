@@ -123,6 +123,10 @@ module Sharepoint
       @site.attachment :post, update_uri + "/AttachmentFiles/add(FileName='" + ('a'..'z').to_a.shuffle[0,8].join + ".png')",site,attributes
     end
 
+    def show_image imageurl, sites
+      @site.image_list :get, imageurl , sites
+    end
+
     def update_item attributes, update_uri
       attributes['__metadata']         ||= Hash.new
       attributes['__metadata']['type'] ||= list_item_entity_type_full_name

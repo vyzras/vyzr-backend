@@ -1,6 +1,7 @@
 require 'curb'
 require 'json'
 require "net/http"
+require 'open-uri'
 require 'sharepoint/sharepoint-session'
 require 'sharepoint/sharepoint-object'
 require 'sharepoint/sharepoint-types'
@@ -137,6 +138,33 @@ module Sharepoint
         result.body_str
       end
     end
+
+
+    def image_list method, uri,sites = nil, body = nil, skip_json=false, &block
+      if sites == nil
+        sites = "mobileapp"
+      end
+      # uri        = if uri =~ /^http/ then uri else api_path(uri) end
+      arguments  = [ uri ]
+      arguments << body if method != :get
+      result = Curl::Easy.send "http_#{method}", *arguments do |curl|
+        curl.headers["Cookie"]          = @session.cookie
+        curl.headers["Accept"]          = "application/json;odata=verbose"
+        if method != :get
+          curl.headers["Content-Type"]    = curl.headers["Accept"]
+          curl.headers["X-HTTP-Method"]    = curl.headers["Accept"]
+          curl.headers["X-RequestDigest"] = form_digest_second(sites) unless @getting_form_digest == true
+        end
+        curl.verbose = @verbose
+        @session.send :curl, curl unless not @session.methods.include? :curl
+        block.call curl           unless block.nil?
+      end
+        return  result.body_str
+
+
+    end
+
+
 
 
     def subscribtion method, uri,sites = nil, body = nil, skip_json=false, &block
