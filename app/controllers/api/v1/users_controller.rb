@@ -26,13 +26,19 @@ module Api::V1
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
          sites.session.authenticate   params[:users][:user_name], params[:users][:password]
          list = sites.list(params[:users][:list_name])
+         b= a[1].split('/')
+         site = b[1]
          @user.list_user
+         current_login_user = sites.context_info.current_user.id
          subscription(@user)
          if @user.list.items.present?
            @user.list.items.all.delete_all
-           fetch_list_items(list,@user)
+           items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+           fetch_items(items,@user,sites)
          else
-           fetch_list_items(list,@user)
+           @user.list.items.all.delete_all
+           items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+           fetch_items(items,@user,sites)
          end
          @user.generate_token
          @user.save!
@@ -90,6 +96,30 @@ module Api::V1
         return true
       end
     end
+
+
+    def fetch_items(list,user,sites)
+      site_name=  @user.server_url
+      a = site_name.split('.com/')
+      b= a[1].split('/')
+      site = b[1]
+      lists = sites.list(@user.list_name)
+      user.list.items.all.delete_all
+      list.each do |i|
+        if i.attachment_files.present?
+          @a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
+                                                 item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+                                                 created_time: i.data["Created"],updated_time: i.data["Modified"],
+                                                 attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
+
+          @a.set_picture(lists.show_image("https://vyzr.sharepoint.com#{i.attachment_files.first.server_relative_url}",site))
+          @a.save
+        else
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
+        end
+      end
+    end
+
 
 
   end

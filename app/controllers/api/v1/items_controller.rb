@@ -10,45 +10,44 @@ module Api::V1
 
     def index
       @user = User.find_by(id: @current_user)
-      site_name=  @user.server_url
-      a = site_name.split('.com/')
-      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @user.email, @user.password
-      list = sites.list(@user.list_name)
-      b= a[1].split('/')
-      site = b[1]
-      current_login_user = sites.context_info.current_user.id
-      @user.list.items.delete_all
-      if params[:order] == "asc" && params[:own] == "true"
-        items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
-        fetch_items(items,@user,sites)
-      @items = @user.list.items.all
-      render json: {success: true , data: @items }
-      elsif  params[:order] == "asc"
-        items = list.find_items({orderby: "Created asc"}, site)
-        fetch_items(items,@user , sites)
-        @items = @user.list.items.all
-        render json: {success: true , data: @items }
-      elsif  params[:order] == "desc"
-       items = list.find_items({orderby: "Created desc"}, site)
-       fetch_items(items,@user,sites)
-       @items = @user.list.items.all
-       render json: {success: true , data: @items }
-      elsif params[:order] == "desc" && params[:own] == "true"
-        items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
-        fetch_items(items,@user,sites)
-        @items = @user.list.items.all
-        render json: {success: true , data: @items }
-      elsif params[:order] == "own"
-        items = list.find_items({filter: "AuthorId eq #{current_login_user}"}, site)
-        fetch_items(items,@user,sites)
-        @items = @user.list.items.all
-        render json: {success: true , data: @items }
-      else
-        fetch_list_items(list,@user)
+      # site_name=  @user.server_url
+      # a = site_name.split('.com/')
+      # sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      # sites.session.authenticate   @user.email, @user.password
+      # list = sites.list(@user.list_name)
+      # b= a[1].split('/')
+      # site = b[1]
+      # current_login_user = sites.context_info.current_user.id
+      # @user.list.items.delete_all
+      # if params[:order] == "asc" && params[:own] == "true"
+      #   items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+      #   fetch_items(items,@user,sites)
+      # @items = @user.list.items.all
+      # render json: {success: true , data: @items }
+      # elsif  params[:order] == "asc"
+      #   items = list.find_items({orderby: "Created asc"}, site)
+      #   fetch_items(items,@user , sites)
+      #   @items = @user.list.items.all
+      #   render json: {success: true , data: @items }
+      # elsif  params[:order] == "desc"
+      #  items = list.find_items({orderby: "Created desc"}, site)
+      #  fetch_items(items,@user,sites)
+      #  @items = @user.list.items.all
+      #  render json: {success: true , data: @items }
+      # elsif params[:order] == "desc" && params[:own] == "true"
+      #   items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
+      #   fetch_items(items,@user,sites)
+      #   @items = @user.list.items.all
+      #   render json: {success: true , data: @items }
+      # elsif params[:order] == "own"
+      #   items = list.find_items({filter: "AuthorId eq #{current_login_user}"}, site)
+      #   fetch_items(items,@user,sites)
+      #   @items = @user.list.items.all
+      #   render json: {success: true , data: @items }
+      # else
         @items = @user.list.items.all
         render json: {success: true , data: @items   }
-        end
+        # end
     end
 
 
@@ -120,7 +119,11 @@ module Api::V1
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
           sites.session.authenticate   @user.email, @user.password
           list = sites.list(@user.list_name)
-          fetch_list_items(list,@user)
+          b= a[1].split('/')
+          site = b[1]
+          @user.list.items.all.delete_all
+          items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+          fetch_items(items,@user,sites)
       # end
 
     end
