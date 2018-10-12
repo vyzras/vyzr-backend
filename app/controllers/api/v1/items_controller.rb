@@ -10,7 +10,7 @@ module Api::V1
 
     def index
         @user = User.find_by(id: @current_user)
-        if @user.is_sync == false
+        # if @user.is_sync == false
           puts "*****************************************"
           site_name=  @user.server_url
           a = site_name.split('.com/')
@@ -24,7 +24,7 @@ module Api::V1
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
-        end
+        # end
         @items = @user.list.items.all
         render json: {success: true , data: @items   }
         # end
@@ -36,15 +36,18 @@ module Api::V1
       @user = User.find_by(id: @current_user)
       site_name=  @user.server_url
       a = site_name.split('.com/')
-      b= a[1].split('/')
-      site = b[1]
       sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
       sites.session.authenticate   @user.email, @user.password
+      b= a[1].split('/')
+      site = b[1]
       list = sites.list(@user.list_name)
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      sites.session.authenticate   @user.email, @user.password
       @items = Item.find_by(id: params[:id])
-      puts @items.item_uri
-      result = list.get_attachment(@items.item_uri, site)
-      puts result.uri
+      puts @items.attachment_url
+      @items.set_picture(list.show_image(@items.attachment_url,site))
+      @items.save!
+
       render json: {success: true , data: @items }
     end
 
@@ -129,8 +132,6 @@ module Api::V1
                                             created_time: i.data["Created"],updated_time: i.data["Modified"],
                                             attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
 
-          @a.set_picture(lists.show_image("https://vyzr.sharepoint.com#{i.attachment_files.first.server_relative_url}",site))
-          @a.save
         else
           user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
         end
