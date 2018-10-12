@@ -47,7 +47,6 @@ module Api::V1
       puts @items.attachment_url
       @items.set_picture(list.show_image(@items.attachment_url,site))
       @items.save!
-
       render json: {success: true , data: @items }
     end
 
@@ -152,9 +151,6 @@ module Api::V1
                                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
                                            created_time: i.data["Created"],updated_time: i.data["Modified"],
                                            attachment_url: "https://vyzr.sharepoint.com"+i.attachment_files.first.server_relative_url)
-
-         @a.set_picture(list.show_image("https://vyzr.sharepoint.com#{i.attachment_files.first.server_relative_url}",site))
-         @a.save!
 
         else
           user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
