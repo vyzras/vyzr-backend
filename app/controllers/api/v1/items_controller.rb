@@ -25,10 +25,10 @@ module Api::V1
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
           @items = @user.list.items.all
-          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:attachment_url,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
+          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
         else
         @items = @user.list.items.all
-        render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:attachment_url,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
+        render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:updated_time,:user_name,:item_uri,:status])   }
         end
     end
 
@@ -46,7 +46,7 @@ module Api::V1
       site = b[1]
       list = sites.list(@user.list_name)
       @items = Item.find_by(id: params[:id])
-      puts @items.attachment_url
+      puts @items.as_json
       @items.set_picture(list.show_image(@items.attachment_url,site))
       @items.save!
       render json: {success: true , data: @items }

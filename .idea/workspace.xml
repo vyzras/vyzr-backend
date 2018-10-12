@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
+            <state relative-caret-position="134">
+              <caret line="27" column="106" selection-start-line="27" selection-start-column="106" selection-end-line="27" selection-end-column="106" />
             </state>
           </provider>
         </entry>
@@ -55,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
-              <caret line="33" column="137" lean-forward="true" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="137" />
+              <caret line="33" column="137" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="137" />
             </state>
           </provider>
         </entry>
@@ -456,7 +455,7 @@
       <workItem from="1538045148555" duration="4066000" />
       <workItem from="1538476676943" duration="36526000" />
       <workItem from="1539159816964" duration="19403000" />
-      <workItem from="1539343454645" duration="7713000" />
+      <workItem from="1539343454645" duration="8762000" />
     </task>
     <servers />
   </component>
@@ -466,7 +465,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="198208000" />
+    <option name="totallyTimeSpent" value="199257000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -832,14 +831,14 @@
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="33" column="137" lean-forward="true" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="137" />
+          <caret line="33" column="137" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="137" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="28" column="12" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="12" />
+        <state relative-caret-position="134">
+          <caret line="27" column="106" selection-start-line="27" selection-start-column="106" selection-end-line="27" selection-end-column="106" />
         </state>
       </provider>
     </entry>
