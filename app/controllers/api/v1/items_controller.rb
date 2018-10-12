@@ -25,7 +25,7 @@ module Api::V1
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
           @items = @user.list.items.all
-          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
+          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:updated_time,:user_name,:item_uri,:status])   }
         else
         @items = @user.list.items.all
         render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:updated_time,:user_name,:item_uri,:status])   }
