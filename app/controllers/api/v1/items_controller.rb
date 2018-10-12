@@ -22,7 +22,7 @@ module Api::V1
           @user.list.items.all.delete_all
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
           fetch_items(items,@user,sites)
-          @user.update_attribute(is_sync: true)
+          @user.update_attributes(is_sync: true)
         end
         @items = @user.list.items.all
         render json: {success: true , data: @items   }
