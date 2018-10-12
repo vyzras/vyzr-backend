@@ -41,8 +41,6 @@ module Api::V1
       b= a[1].split('/')
       site = b[1]
       list = sites.list(@user.list_name)
-      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      sites.session.authenticate   @user.email, @user.password
       @items = Item.find_by(id: params[:id])
       puts @items.attachment_url
       @items.set_picture(list.show_image(@items.attachment_url,site))
