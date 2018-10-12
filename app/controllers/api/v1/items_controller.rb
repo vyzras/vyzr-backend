@@ -121,6 +121,7 @@ module Api::V1
           list = sites.list(@user.list_name)
           b= a[1].split('/')
           site = b[1]
+          current_login_user = sites.context_info.current_user.id
           @user.list.items.all.delete_all
           items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
           fetch_items(items,@user,sites)
