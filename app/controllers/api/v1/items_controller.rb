@@ -110,7 +110,7 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 30.days}" }, site)
           fetch_items(items,@user,sites)
       # end
 
