@@ -26,20 +26,8 @@ module Api::V1
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
          sites.session.authenticate   params[:users][:user_name], params[:users][:password]
          list = sites.list(params[:users][:list_name])
-         b= a[1].split('/')
-         site = b[1]
          @user.list_user
-         current_login_user = sites.context_info.current_user.id
          subscription(@user)
-         if @user.list.items.present?
-           @user.list.items.all.delete_all
-           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
-           fetch_items(items,@user,sites)
-         else
-           @user.list.items.all.delete_all
-           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
-           fetch_items(items,@user,sites)
-         end
          @user.generate_token
          @user.save!
          @user.list.update_attributes(guid: list.guid)

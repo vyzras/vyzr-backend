@@ -9,42 +9,21 @@ module Api::V1
     # after_action :update_user     , on: [:create]
 
     def index
-      @user = User.find_by(id: @current_user)
-      # site_name=  @user.server_url
-      # a = site_name.split('.com/')
-      # sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-      # sites.session.authenticate   @user.email, @user.password
-      # list = sites.list(@user.list_name)
-      # b= a[1].split('/')
-      # site = b[1]
-      # current_login_user = sites.context_info.current_user.id
-      # @user.list.items.delete_all
-      # if params[:order] == "asc" && params[:own] == "true"
-      #   items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
-      #   fetch_items(items,@user,sites)
-      # @items = @user.list.items.all
-      # render json: {success: true , data: @items }
-      # elsif  params[:order] == "asc"
-      #   items = list.find_items({orderby: "Created asc"}, site)
-      #   fetch_items(items,@user , sites)
-      #   @items = @user.list.items.all
-      #   render json: {success: true , data: @items }
-      # elsif  params[:order] == "desc"
-      #  items = list.find_items({orderby: "Created desc"}, site)
-      #  fetch_items(items,@user,sites)
-      #  @items = @user.list.items.all
-      #  render json: {success: true , data: @items }
-      # elsif params[:order] == "desc" && params[:own] == "true"
-      #   items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
-      #   fetch_items(items,@user,sites)
-      #   @items = @user.list.items.all
-      #   render json: {success: true , data: @items }
-      # elsif params[:order] == "own"
-      #   items = list.find_items({filter: "AuthorId eq #{current_login_user}"}, site)
-      #   fetch_items(items,@user,sites)
-      #   @items = @user.list.items.all
-      #   render json: {success: true , data: @items }
-      # else
+        @user = User.find_by(id: @current_user)
+        if @user.is_sync == false
+          site_name=  @user.server_url
+          a = site_name.split('.com/')
+          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites.session.authenticate   @user.email, @user.password
+          list = sites.list(@user.list_name)
+          b= a[1].split('/')
+          site = b[1]
+          current_login_user = sites.context_info.current_user.id
+          @user.list.items.all.delete_all
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
+          fetch_items(items,@user,sites)
+          @user.update_attribute(is_sync: true)
+        end
         @items = @user.list.items.all
         render json: {success: true , data: @items   }
         # end
@@ -79,14 +58,16 @@ module Api::V1
          list = sites.list(@user.list_name)
          b= a[1].split('/')
          site = b[1]
+         current_login_user = sites.context_info.current_user.id
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
-         fetch_list_items(list,@user)
+         items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
+         render json: {success: true , data: Item.last}
+         fetch_items(items,@user,sites)
          if @list.image_url.present?
            a =(@list.image_url.read)
            list.add_attachment(a, @user.list.items.last.item_uri ,site)
          end
-         render json: {success: true , data: Item.last}
         end
 
 
@@ -122,7 +103,6 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          @user.list.items.all.delete_all
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
           fetch_items(items,@user,sites)
       # end
