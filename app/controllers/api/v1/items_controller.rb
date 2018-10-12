@@ -11,6 +11,7 @@ module Api::V1
     def index
         @user = User.find_by(id: @current_user)
         if @user.is_sync == false
+          puts "*****************************************"
           site_name=  @user.server_url
           a = site_name.split('.com/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -61,14 +62,14 @@ module Api::V1
          current_login_user = sites.context_info.current_user.id
          @list = @user.list.items.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
-         items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
-         render json: {success: true , data: Item.last}
-         fetch_items(items,@user,sites)
+         fetch_list_items(list,@user)
          if @list.image_url.present?
            a =(@list.image_url.read)
            list.add_attachment(a, @user.list.items.last.item_uri ,site)
          end
-        end
+         render json: {success: true , data: Item.last}
+
+    end
 
 
     def update
@@ -152,7 +153,7 @@ module Api::V1
                                            attachment_url: "https://vyzr.sharepoint.com"+i.attachment_files.first.server_relative_url)
 
          @a.set_picture(list.show_image("https://vyzr.sharepoint.com#{i.attachment_files.first.server_relative_url}",site))
-         @a.save
+         @a.save!
 
         else
           user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
