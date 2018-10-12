@@ -33,11 +33,11 @@ module Api::V1
          subscription(@user)
          if @user.list.items.present?
            @user.list.items.all.delete_all
-           items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
            fetch_items(items,@user,sites)
          else
            @user.list.items.all.delete_all
-           items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user}" }, site)
+           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
            fetch_items(items,@user,sites)
          end
          @user.generate_token
