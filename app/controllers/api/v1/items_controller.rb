@@ -10,7 +10,7 @@ module Api::V1
 
     def index
         @user = User.find_by(id: @current_user)
-        # if @user.is_sync == false
+        if @user.is_sync == false
           puts "*****************************************"
           site_name=  @user.server_url
           a = site_name.split('.com/')
@@ -24,11 +24,15 @@ module Api::V1
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user}" }, site)
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
-        # end
+          @items = @user.list.items.all
+          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:attachment_url,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
+        else
         @items = @user.list.items.all
-        render json: {success: true , data: @items   }
-        # end
+        render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:attachment_url,:anonymous,:created_time,:updated_time,:user_name,:item_uri,:status])   }
+        end
     end
+
+
 
 
 
