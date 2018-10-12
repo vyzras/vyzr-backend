@@ -47,8 +47,10 @@ module Api::V1
       list = sites.list(@user.list_name)
       @items = Item.find_by(id: params[:id])
       puts @items.as_json
+      if @items.attachment_url.present?
       @items.set_picture(list.show_image(@items.attachment_url,site))
       @items.save!
+      end
       render json: {success: true , data: @items }
     end
 
