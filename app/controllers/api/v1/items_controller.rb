@@ -96,10 +96,10 @@ module Api::V1
       if params[:validationToken].present?
         render :json=>  params[:validationToken]
       else
-          resource = params[:resource]
-          # params[:value].each do |d|
-          # resource = d[:resource]
-          # end
+          resource = ""
+          params[:value].each do |d|
+          resource = d[:resource]
+          end
           @list = List.find_by(guid:resource)
           @user = User.find_by(id:  @list.user_id)
           site_name=  @user.server_url
