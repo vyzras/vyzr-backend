@@ -1,7 +1,7 @@
 module Api::V1
   class ItemsController < ApiController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    skip_before_action :authenticate, only: [:updated_list,:subscription]
+    skip_before_action :authenticate, on: [:updated_list,:subscription]
     require 'open-uri'
 
     before_action :set_item
@@ -96,10 +96,10 @@ module Api::V1
       if params[:validationToken].present?
         render :json=>  params[:validationToken]
       else
-          resource = ""
-          params[:value].each do |d|
-          resource = d[:resource]
-          end
+          resource = params[:resource]
+          # params[:value].each do |d|
+          # resource = d[:resource]
+          # end
           @list = List.find_by(guid:resource)
           @user = User.find_by(id:  @list.user_id)
           site_name=  @user.server_url
@@ -181,6 +181,19 @@ module Api::V1
                                             item_id: i.data['__metadata']['id'])
         end
       end
+    end
+
+    def subscription
+      @user = User.find_by(id: 1)
+      site_name=  @user.server_url
+      a = site_name.split('.com/')
+      sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+      sites.session.authenticate   @user.email, @user.password
+      list = sites.list(@user.list_name)
+      b= a[1].split('/')
+      site = b[1]
+      url = list.data["__metadata"]["uri"]
+      list.create_subscription(url,'http://vyzrbackend.mashup.li/v1/updated_list',site )
     end
 
 
