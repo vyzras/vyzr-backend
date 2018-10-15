@@ -26,8 +26,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-583">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="43">
+              <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -479,7 +479,7 @@
       <workItem from="1539373005998" duration="3747000" />
       <workItem from="1539581586039" duration="35000" />
       <workItem from="1539585758241" duration="5000" />
-      <workItem from="1539585772638" duration="5571000" />
+      <workItem from="1539585772638" duration="5883000" />
     </task>
     <servers />
   </component>
@@ -489,10 +489,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212069000" />
+    <option name="totallyTimeSpent" value="212381000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2584814" />
       <window_info anchor="bottom" id="TODO" order="9" />
@@ -503,7 +504,7 @@
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
       <window_info anchor="bottom" id="Version Control" order="19" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="16" visible="true" weight="0.51862067" />
+      <window_info anchor="bottom" id="Terminal" order="16" weight="0.51862067" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -858,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-583">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="43">
+          <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
         </state>
       </provider>
     </entry>
