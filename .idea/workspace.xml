@@ -4,8 +4,6 @@
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/schema.rb" beforeDir="false" afterPath="$PROJECT_DIR$/db/schema.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sharepoint/soap/authenticate.xml.erb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/soap/authenticate.xml.erb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -29,8 +27,58 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="112" column="158" selection-start-line="112" selection-start-column="158" selection-end-line="112" selection-end-column="158" />
+            <state relative-caret-position="36">
+              <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="97" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sharepoint-ruby.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="97">
+              <caret line="62" column="90" selection-start-line="62" selection-start-column="81" selection-end-line="62" selection-end-column="90" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sharepoint-properties.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-properties.rb">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="sharepoint-lists.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="410">
+              <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sharepoint-object.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-object.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="363">
+              <caret line="70" column="18" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api_controller.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="users_controller.rb" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="81" column="18" lean-forward="true" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -42,6 +90,7 @@
       <find>sharepoint-user</find>
       <find>item_uri</find>
       <find>huma</find>
+      <find>list</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/lib/sharepoint</dir>
@@ -62,7 +111,6 @@
         <option value="$PROJECT_DIR$/app/controllers/application_controller.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-properties.rb" />
-        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-object.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-types.rb" />
         <option value="$PROJECT_DIR$/app/lib/sharepoint/sharepoint-lists.rb" />
         <option value="$PROJECT_DIR$/app/lib/sharepoint/sharepoint-ruby.rb" />
@@ -95,14 +143,15 @@
         <option value="$PROJECT_DIR$/db/migrate/20181010120609_add_some_fields.rb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20181011054859_add_attachment_url.rb" />
-        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" />
         <option value="$PROJECT_DIR$/app/models/item.rb" />
         <option value="$PROJECT_DIR$/db/migrate/20181012121732_add_sync_in_user.rb" />
         <option value="$PROJECT_DIR$/app/models/user.rb" />
-        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb" />
         <option value="$PROJECT_DIR$/lib/sharepoint/soap/authenticate.xml.erb" />
         <option value="$PROJECT_DIR$/db/migrate/20181015071635_add_item_id.rb" />
+        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" />
+        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-object.rb" />
+        <option value="$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb" />
         <option value="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" />
       </list>
     </option>
@@ -168,6 +217,23 @@
               <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
               <item name="db" type="462c0819:PsiDirectoryNode" />
               <item name="migrate" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="sharepoint" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vyzr-backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vyzr-backend" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="tasks" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -405,7 +471,7 @@
       <workItem from="1539373005998" duration="3747000" />
       <workItem from="1539581586039" duration="35000" />
       <workItem from="1539585758241" duration="5000" />
-      <workItem from="1539585772638" duration="2961000" />
+      <workItem from="1539585772638" duration="4410000" />
     </task>
     <servers />
   </component>
@@ -415,7 +481,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="209459000" />
+    <option name="totallyTimeSpent" value="210908000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -430,7 +496,7 @@
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
       <window_info anchor="bottom" id="Version Control" order="19" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="16" weight="0.51862067" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="16" visible="true" weight="0.51862067" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -477,9 +543,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/config/environment.rb">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/rubystubs21/standard_error.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -493,31 +556,6 @@
           <caret line="6" selection-start-line="6" selection-end-line="6" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="79" column="38" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-fields.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1320" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-http-auth.rb">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-object.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-properties.rb">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20180817094349_add_api_key_to_users.rb">
       <provider selected="true" editor-type-id="text-editor">
@@ -719,24 +757,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/item.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="33" column="137" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="137" />
         </state>
       </provider>
     </entry>
@@ -747,24 +771,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="145" column="9" selection-start-line="145" selection-start-column="9" selection-end-line="145" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="19" selection-start-line="6" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-types.rb">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-files.rb">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/sharepoint/soap/authenticate.xml.erb">
@@ -781,10 +788,71 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/users_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="81" column="18" lean-forward="true" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/api_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-session.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1183">
+          <caret line="79" column="38" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-users.rb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-files.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-465" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-fields.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1320" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-http-auth.rb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-properties.rb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-object.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="70" column="18" selection-start-line="70" selection-start-column="18" selection-end-line="70" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="62" column="90" selection-start-line="62" selection-start-column="81" selection-end-line="62" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="81" column="57" lean-forward="true" selection-start-line="81" selection-start-column="57" selection-end-line="81" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="112" column="158" selection-start-line="112" selection-start-column="158" selection-end-line="112" selection-end-column="158" />
+        <state relative-caret-position="36">
+          <caret line="95" column="5" selection-start-line="95" selection-start-column="5" selection-end-line="97" selection-end-column="10" />
         </state>
       </provider>
     </entry>

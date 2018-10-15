@@ -93,9 +93,9 @@ module Api::V1
 
     def updated_list
 
-      # if params[:validationToken].present?
-      #   render :json=>  params[:validationToken]
-      # else
+      if params[:validationToken].present?
+        render :json=>  params[:validationToken]
+      else
           resource = ""
           params[:value].each do |d|
           resource = d[:resource]
@@ -127,7 +127,7 @@ module Api::V1
           #                            created_time: i.data["Created"],updated_time: i.data["Modified"])
           # end
           # end
-          # end
+          end
     end
 
 
