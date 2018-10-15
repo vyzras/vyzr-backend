@@ -21,7 +21,7 @@ module Api::V1
           site = b[1]
           current_login_user = sites.context_info.current_user.id
           @user.list.items.all.delete_all
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 30.days}" }, site)
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
           @items = @user.list.items.all
@@ -110,11 +110,26 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 30.days}" }, site)
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
           fetch_items(items,@user,sites)
-      # end
-
+          # items.each do |i|
+          #   @user.list.items.where(item_id: i.data['__metadata']['id']).first_or_initialize.tap do |item|
+          #   if i.attachment_files.present?
+          #   item.update_attributes(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
+          #                          item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+          #                          created_time: i.data["Created"],updated_time: i.data["Modified"],
+          #                          attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
+          #   else
+          #     item.update_attributes(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s,
+          #                            author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
+          #
+          #                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+          #                            created_time: i.data["Created"],updated_time: i.data["Modified"])
+          # end
+          # end
+          # end
     end
+
 
 
     def destroy
@@ -133,10 +148,14 @@ module Api::V1
           @a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
                                             item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
                                             created_time: i.data["Created"],updated_time: i.data["Modified"],
-                                            attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
+                                            attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url,
+                                                 item_id: i.data['__metadata']['id'])
 
         else
-          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
+                                            created_time: i.data["Created"],
+                                            updated_time: i.data["Modified"],
+                                            item_id: i.data['__metadata']['id'])
         end
       end
     end
@@ -154,10 +173,12 @@ module Api::V1
        @a = user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
                                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
                                            created_time: i.data["Created"],updated_time: i.data["Modified"],
-                                           attachment_url: "https://vyzr.sharepoint.com"+i.attachment_files.first.server_relative_url)
+                                           attachment_url: "https://vyzr.sharepoint.com"+i.attachment_files.first.server_relative_url,
+                                          item_id: i.data['__metadata']['id'])
 
         else
-          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"])
+          user.list.items.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"],
+                                            item_id: i.data['__metadata']['id'])
         end
       end
     end
