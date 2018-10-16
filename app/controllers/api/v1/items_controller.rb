@@ -1,12 +1,10 @@
 module Api::V1
   class ItemsController < ApiController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    skip_before_action :authenticate, only: [:updated_list,:subscription]
+    skip_before_action :authenticate, only: [:subscription]
     require 'open-uri'
 
     before_action :set_item
-
-    # after_action :update_user     , on: [:create]
 
     def index
         @user = User.find_by(id: @current_user)
@@ -21,14 +19,16 @@ module Api::V1
           site = b[1]
           current_login_user = sites.context_info.current_user.id
           @user.list.items.all.delete_all
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
+          items = list.find_items({orderby: "Created asc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
           fetch_items(items,@user,sites)
           @user.update_attributes(is_sync: true)
-          @items = @user.list.items.all
-          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:updated_time,:user_name,:item_uri,:status])   }
+          @user.list.update_attributes(last_updated:  items.last.data['Modified'])
+          @items = @user.list.items.all.sort.reverse
+          render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:user_name,:item_uri,:status,:item_id,:user_id,:attachment_url,:image_url])   }
         else
-        @items = @user.list.items.all
-        render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:updated_time,:user_name,:item_uri,:status])   }
+        sync
+        @items = @user.list.items.all.sort.reverse
+        render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:user_name,:item_uri,:status,:item_id,:user_id,:attachment_url,:image_url])   }
         end
     end
 
@@ -51,7 +51,9 @@ module Api::V1
       @items.set_picture(list.show_image(@items.attachment_url,site))
       @items.save!
       end
-      render json: {success: true , data: @items }
+      render json: {success: true , data: @items.as_json(:except => [:created_at, :updated_at,:api_key,:anonymous,:user_name,:item_uri,:status, :item_id,:attachment_url])   }
+
+
     end
 
 
@@ -91,17 +93,8 @@ module Api::V1
     end
 
 
-    def updated_list
-
-      if params[:validationToken].present?
-        render :json=>  params[:validationToken]
-      else
-          resource = ""
-          params[:value].each do |d|
-          resource = d[:resource]
-          end
-          @list = List.find_by(guid:resource)
-          @user = User.find_by(id:  @list.user_id)
+    def sync
+          @user = User.find_by(id: @current_user)
           site_name=  @user.server_url
           a = site_name.split('.com/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -110,23 +103,54 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
-          fetch_items(items,@user,sites)
-          # items.each do |i|
-          #   @user.list.items.where(item_id: i.data['__metadata']['id']).first_or_initialize.tap do |item|
-          #   if i.attachment_files.present?
-          #   item.update_attributes(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
-          #                          item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
-          #                          created_time: i.data["Created"],updated_time: i.data["Modified"],
-          #                          attachment_url: "https://vyzr.sharepoint.com/"+i.attachment_files.first.server_relative_url)
-          #   else
-          #     item.update_attributes(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s,
-          #                            author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
-          #
-          #                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
-          #                            created_time: i.data["Created"],updated_time: i.data["Modified"])
-          # end
-          # end
+          items = list.find_items({orderby: "Modified desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
+          if (Time.parse(@user.list.last_updated)).to_i < (Time.parse(items.first.data['Modified'])).to_i
+            items.each do |d|
+              if  (Time.parse(@user.list.last_updated)).to_i < (Time.parse(d.data["Modified"])).to_i
+                 puts "**********************************************************************"
+                 puts "**********************************************************************"
+                 puts "**********************************************************************"
+                 puts "**********************************************************************"
+                 if @items =  @user.list.items.find_by(item_uri: d.data["__metadata"]["uri"])
+                      if d.attachment_files.present?
+                        @items.update_attributes(title: d.data["Title"].to_s, description:d.data["CaseDescription"].to_s,
+                                                 author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
+                                                 item_uri: d.data['__metadata']['uri'],complete_percentage: d.data["PercentComplete"],
+                                                 created_time: d.data["Created"],updated_time: d.data["Modified"],
+                                                 attachment_url: "https://vyzr.sharepoint.com/"+d.attachment_files.first.server_relative_url)
+                      else
+                        @items.update_attributes(title: d.data["Title"].to_s, description:d.data["CaseDescription"].to_s,
+                                                 author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
+                                                 item_uri: d.data['__metadata']['uri'],complete_percentage: d.data["PercentComplete"],
+                                                 created_time: d.data["Created"],updated_time: d.data["Modified"])
+                      end
+                 else
+                       @not_present =  @user.list.items.find_by(item_uri: d.data["__metadata"]["uri"])
+                        if @not_present.nil?
+                          if d.attachment_files.present?
+                          @user.list.items.create(title: d.data["Title"].to_s, description:d.data["CaseDescription"].to_s, author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
+                                                   item_uri: d.data['__metadata']['uri'],complete_percentage: d.data["PercentComplete"],
+                                                   created_time: d.data["Created"],updated_time: d.data["Modified"],
+                                                  attachment_url: "https://vyzr.sharepoint.com/"+d.attachment_files.first.server_relative_url)
+                          else
+                            @user.list.items.create(title: d.data["Title"].to_s, description:d.data["CaseDescription"].to_s, author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
+                                                    item_uri: d.data['__metadata']['uri'],complete_percentage: d.data["PercentComplete"],
+                                                    created_time: d.data["Created"],updated_time: d.data["Modified"])
+                          end
+                        end
+                 puts "#######################################################################"
+                 puts "#######################################################################"
+                 puts "#######################################################################"
+                 puts "#######################################################################"
+              end
+                @user.list.update_attributes(last_updated:  items.first.data['Modified'])
+              end
+            end
+
+          else
+            puts  (Time.parse(@user.list.last_updated)).to_i
+            puts  (Time.parse(items.first.data['Modified'])).to_i
+
           end
     end
 
