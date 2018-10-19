@@ -1,7 +1,7 @@
 module Api::V1
   class ItemsController < ApiController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    skip_before_action :authenticate, only: [:subscription, :index, :show]
+    skip_before_action :authenticate, only: [:subscription, :index, :show, :create]
     require 'open-uri'
 
     before_action :set_item
