@@ -6,6 +6,10 @@ class User < ApplicationRecord
   has_many :user_tokens
   has_one  :list
 
+
+
+  validates :email , uniqueness: true
+
   #####################  Callbacks    ##########################
 
   def generate_token
@@ -13,11 +17,10 @@ class User < ApplicationRecord
       self.user_tokens.create(token: tokens)
   end
 
-
   #################### Create List
-   def list_user
+   def list_user(list)
      if !self.list.present?
-        self.create_list(title:self.list_name)
+        self.create_list(title:list)
      else
          return true
      end

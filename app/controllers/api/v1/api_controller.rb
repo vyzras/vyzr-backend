@@ -50,24 +50,8 @@ module Api::V1
 
 
     ############## SharePoint Authentication #################
-    def create_share_point_user
-        site_name=  params[:users][:server_url]
-        a = site_name.split('.com/')
-        sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
-        if sites.session.authenticate   "#{params[:users][:user_name]}", "#{params[:users][:password]}"
-          return false
-        else
-          if list = sites.list(params[:users][:list_name])
-          else
-            return false
-          end
-          return true
-        end
-    end
 
 
 end
-
-
-
 end
+
