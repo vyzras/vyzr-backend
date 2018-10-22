@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="21" column="159" selection-start-line="21" selection-start-column="159" selection-end-line="21" selection-end-column="159" />
+            <state relative-caret-position="154">
+              <caret line="55" column="88" selection-start-line="55" selection-start-column="88" selection-end-line="55" selection-end-column="88" />
             </state>
           </provider>
         </entry>
@@ -407,7 +406,7 @@
       <workItem from="1539681096607" duration="12874000" />
       <workItem from="1539866756266" duration="3042000" />
       <workItem from="1540191729402" duration="95000" />
-      <workItem from="1540214940691" duration="2038000" />
+      <workItem from="1540214940691" duration="3475000" />
     </task>
     <servers />
   </component>
@@ -417,7 +416,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245437000" />
+    <option name="totallyTimeSpent" value="246874000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="6" />
@@ -426,13 +425,13 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2956381" />
       <window_info anchor="bottom" id="TODO" order="9" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5016155" side_tool="true" weight="0.6896552" />
+      <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5024233" side_tool="true" weight="0.68689656" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
-      <window_info anchor="bottom" id="Version Control" order="19" weight="0.32965517" />
+      <window_info anchor="bottom" id="Version Control" order="19" sideWeight="0.49919224" weight="0.32965517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="16" sideWeight="0.4983845" weight="0.68689656" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="16" sideWeight="0.49757674" visible="true" weight="0.5131034" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -792,8 +791,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="21" column="159" selection-start-line="21" selection-start-column="159" selection-end-line="21" selection-end-column="159" />
+        <state relative-caret-position="154">
+          <caret line="55" column="88" selection-start-line="55" selection-start-column="88" selection-end-line="55" selection-end-column="88" />
         </state>
       </provider>
     </entry>
