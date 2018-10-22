@@ -11,7 +11,6 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
-          puts "***************************************** Starting **************************************"
           site_name =  @server_url
           a = site_name.split('.com/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -20,28 +19,13 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days} &$select=*" }, site)
           data = []
           items.each do |d|
-            if d.attachment_files.present?
-            data.push({title: d.data["Title"].to_s,
-                       description:d.data["CaseDescription"].to_s,
-                       author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
-                       complete_percentage: d.data["PercentComplete"],
-                       created_time: d.data["Created"],updated_time: d.data["Modified"],
-                       attachment_url: "https://vyzr.sharepoint.com"+d.attachment_files.first.server_relative_url})
-            else
-              data.push({title: d.data["Title"].to_s,
-                         description:d.data["CaseDescription"].to_s,
-                         author_id:d.data["AuthorId"].to_s,editor_id:d.data["EditorId"].to_s,
-                         complete_percentage: d.data["PercentComplete"],
-                         created_time: d.data["Created"],updated_time: d.data["Modified"]})
+            data.push(d.data)
           end
-          end
-        puts "***************************************** Ending **************************************"
 
-        render json: {success: true , data: data.as_json  }
-
+      render json: [success:true , data: data]
     end
 
 
