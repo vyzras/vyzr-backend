@@ -23,9 +23,6 @@ module Api::V1
           data = []
           items.each do |d|
             data.push(d.data)
-            # if d.attachment_files.present?
-            # puts d.attachment_files.first.server_relative_url
-            # end
           end
 
       render json: [success:true , data: data]
@@ -54,8 +51,9 @@ module Api::V1
       items.each do |d|
         if d.attachment_files.present?
           if d.attachment_files.first.data['__metadata']['id'].split("('")[0] ==  @image
-         @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
-         @item.set_picture(list.show_image(@image,site))
+            @images =  "https://vyzr.sharepoint.com/"+ d.attachment_files.first.server_relative_url
+            @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
+         @item.set_picture(list.show_image(@images,site))
           end
         end
       end
