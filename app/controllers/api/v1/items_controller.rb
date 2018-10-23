@@ -4,7 +4,7 @@ module Api::V1
     skip_before_action :authenticate, only: [:subscription, :index, :show, :create]
     require 'open-uri'
 
-    before_action :set_item
+    # before_action :set_item
 
     def index
         @email = request.headers["email"]
@@ -20,12 +20,12 @@ module Api::V1
           site = b[1]
           current_login_user = sites.context_info.current_user.id
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days} &$select=*" }, site)
-          data = []
-          items.each do |d|
-            data.push(d.data)
-          end
+          # data = []
+          # items.each do |d|
+          #   data.push(d.data)
+          # end
 
-      render json: [success:true , data: data]
+      render json: [success:true , data: items.collect(&:data)]
     end
 
 
@@ -80,15 +80,13 @@ module Api::V1
          @list = Item.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
           if params[:items][:image].present?
-            fetch_list_items(list)
             if @list.image_url.present?
               a =(@list.image_url.read)
-              list.add_attachment(a, Item.last.item_uri ,site)
+              list.add_attachment(a,list_result.data['__metadata']['uri'] ,site)
             end
           end
          render json: {success: true , data: Item.last }
           Item.delete_all
-
     end
 
 
@@ -160,21 +158,24 @@ module Api::V1
     end
 
 
-    def fetch_list_items(list)
+    def fetch_list_items(list,current_login_user, site)
       Item.delete_all
-      items =  list.items
-      items.each do |i|
+      items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
+      items.each_with_index do |i, index|
         if i.attachment_files.present?
+          if index == 0
        @a = Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,
                                            item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"],
                                            created_time: i.data["Created"],updated_time: i.data["Modified"],
                                            attachment_url: "https://vyzr.sharepoint.com"+i.attachment_files.first.server_relative_url,
                                           item_id: i.data['__metadata']['id'])
-
+          end
         else
-         Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"],
-                                            item_id: i.data['__metadata']['id'])
-        end
+          if index == 0
+            Item.find_or_create_by(title: i.data["Title"].to_s, description:i.data["CaseDescription"].to_s, author_id:i.data["AuthorId"].to_s,editor_id:i.data["EditorId"].to_s,item_uri: i.data['__metadata']['uri'],complete_percentage: i.data["PercentComplete"], created_time: i.data["Created"],updated_time: i.data["Modified"],
+                                   item_id: i.data['__metadata']['id'])
+          end
+          end
       end
     end
 
