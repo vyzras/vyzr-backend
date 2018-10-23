@@ -79,10 +79,12 @@ module Api::V1
          current_login_user = sites.context_info.current_user.id
          @list = Item.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
-          fetch_list_items(list)
-          if @list.image_url.present?
-           a =(@list.image_url.read)
-           list.add_attachment(a, Item.last.item_uri ,site)
+          if params[:items][:image].present?
+            fetch_list_items(list)
+            if @list.image_url.present?
+              a =(@list.image_url.read)
+              list.add_attachment(a, Item.last.item_uri ,site)
+            end
           end
          render json: {success: true , data: Item.last }
           Item.delete_all
