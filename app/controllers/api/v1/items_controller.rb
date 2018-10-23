@@ -19,11 +19,7 @@ module Api::V1
           b= a[1].split('/')
           site = b[1]
           current_login_user = sites.context_info.current_user.id
-          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days} &$select=*" }, site)
-          # data = []
-          # items.each do |d|
-          #   data.push(d.data)
-          # end
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
 
       render json: [success:true , data: items.collect(&:data)]
     end
@@ -45,20 +41,17 @@ module Api::V1
       list = sites.list(@list_name)
       b= a[1].split('/')
       site = b[1]
-       if @image.present?
-      current_login_user = sites.context_info.current_user.id
-      items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
-      items.each do |d|
-        if d.attachment_files.present?
-          if d.attachment_files.first.data['__metadata']['id'].split("('")[0] ==  @image
-            @images =  "https://vyzr.sharepoint.com/"+ d.attachment_files.first.server_relative_url
-            @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
-         @item.set_picture(list.show_image(@images,site))
-          end
-        end
-      end
-          render json: {success: true , data: @item.as_json(:only => [:image_url,:title,:description,:updated_time,:created_time,:complete_percentage])}
-       end
+         if @image.present?
+           items = list.find_items({filter: "ID eq #{@image.split('/')[9].split('(')[1].split(')')[0]}" }, site)
+           items.each do |d|
+             if d.attachment_files.present?
+               @images =  "https://vyzr.sharepoint.com/"+ d.attachment_files.first.server_relative_url
+               @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
+               @item.set_picture(list.show_image(@images,site))
+             end
+           end
+           render json: {success: true , data: @item.as_json(:only => [:image_url,:title,:description,:updated_time,:created_time,:complete_percentage])}
+         end
     end
 
 
