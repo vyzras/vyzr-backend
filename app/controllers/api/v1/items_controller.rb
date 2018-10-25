@@ -99,12 +99,12 @@ module Api::V1
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
         puts "****************"
-        puts @server_url
+        Rails.logger.info @server_url
         puts "****************"
-        puts  @email
-        puts @password
+        Rails.logger.info  @email
+        Rails.logger.info @password
         puts "****************"
-        puts @list_name
+        Rails.logger.info @list_name
         puts "****************"
 
         if @server_url == "nofitromsas.sharepoint.com/forbedring"

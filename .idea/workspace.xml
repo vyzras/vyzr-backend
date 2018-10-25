@@ -35,8 +35,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
+            <state relative-caret-position="303">
+              <caret line="106" column="25" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -49,6 +49,7 @@
       <find>item_uri</find>
       <find>huma</find>
       <find>list</find>
+      <find>info</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/lib/sharepoint</dir>
@@ -420,7 +421,7 @@
       <workItem from="1540282403988" duration="8363000" />
       <workItem from="1540363261093" duration="248000" />
       <workItem from="1540448586082" duration="192000" />
-      <workItem from="1540464525417" duration="1825000" />
+      <workItem from="1540464525417" duration="2202000" />
     </task>
     <servers />
   </component>
@@ -430,7 +431,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259233000" />
+    <option name="totallyTimeSpent" value="259610000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -445,7 +446,7 @@
       <window_info anchor="bottom" id="Version Control" order="19" sideWeight="0.49919224" weight="0.32965517" />
       <window_info anchor="bottom" id="Run" order="3" weight="0.32965517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="16" sideWeight="0.49676898" visible="true" weight="0.5572414" />
+      <window_info anchor="bottom" id="Terminal" order="16" sideWeight="0.49676898" weight="0.5572414" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -492,13 +493,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/db/migrate/20180908202318_create_user_tokens.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/migrate/20180817092143_create_users.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -802,10 +796,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/config/environments/production.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="41" column="70" selection-start-line="41" selection-start-column="66" selection-end-line="41" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="106" column="23" selection-start-line="106" selection-start-column="23" selection-end-line="106" selection-end-column="23" />
+        <state relative-caret-position="303">
+          <caret line="106" column="25" selection-start-line="106" selection-start-column="25" selection-end-line="106" selection-end-column="25" />
         </state>
       </provider>
     </entry>
