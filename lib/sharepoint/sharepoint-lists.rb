@@ -109,6 +109,12 @@ module Sharepoint
       @site.query_second :post, item_uri, sites, attributes.to_json
     end
 
+    def add_third_list attributes ,sites
+      attributes['__metadata']         ||= Hash.new
+      attributes['__metadata']['type'] ||= list_item_entity_type_full_name
+      @site.query_third :post, item_uri, sites, attributes.to_json
+    end
+
     def create_subscription  uri, notificationUrl ,site
       attributes ||= Hash.new
       attributes['resource'] ||= uri

@@ -106,11 +106,10 @@ module Api::V1
         puts "****************"
         Rails.logger.info @list_name
         puts "****************"
-
-        if @server_url == "nofitromsas.sharepoint.com/forbedring"
+        if @server_url.downcase == "Nofitromsas.sharepoint.com/forbedring".downcase
           site_name= @server_url
           a = site_name.split('/')
-          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites =  Sharepoint::Site.new a[0], a[1]
           sites.session.authenticate  @email, @password
           list = sites.list(@list_name)
           site = a[1]
@@ -121,7 +120,7 @@ module Api::V1
           puts  @email
           puts @password
           puts "****************"
-          list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
+          list_result = list.add_third_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
           if params[:items][:image].present?
             if @list.image_url.present?
               a =(@list.image_url.read)

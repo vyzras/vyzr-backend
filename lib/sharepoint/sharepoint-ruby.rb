@@ -67,9 +67,22 @@ module Sharepoint
     end
 
     def form_digest_second sites
+      puts sites
+      puts "888888888"
       if @web_context.nil? or (not @web_context.is_up_to_date?)
         @getting_form_digest = true
         @web_context         = query :post, "#{@protocol}://#{@server_url}/sites/#{sites}/_api/contextinfo"
+        @getting_form_digest = false
+      end
+      @web_context.form_digest_value
+    end
+
+    def form_digest_third sites
+      puts sites
+      puts "888888888"
+      if @web_context.nil? or (not @web_context.is_up_to_date?)
+        @getting_form_digest = true
+        @web_context         = query :post, "#{@protocol}://#{@server_url}/#{sites}/_api/contextinfo"
         @getting_form_digest = false
       end
       @web_context.form_digest_value
@@ -138,6 +151,40 @@ module Sharepoint
         result.body_str
       end
     end
+
+    def query_third method, uri,sites = nil, body = nil, skip_json=false, &block
+      if sites == nil
+        sites = "mobileapp"
+      end
+      uri        = if uri =~ /^http/ then uri else api_path(uri) end
+      arguments  = [ uri ]
+      arguments << body if method != :get
+      result = Curl::Easy.send "http_#{method}", *arguments do |curl|
+        curl.headers["Cookie"]          = @session.cookie
+        curl.headers["Accept"]          = "application/json;odata=verbose"
+        if method != :get
+          curl.headers["Content-Type"]    = curl.headers["Accept"]
+          curl.headers["X-HTTP-Method"]    = curl.headers["Accept"]
+          curl.headers["X-RequestDigest"] = form_digest_third(sites) unless @getting_form_digest == true
+        end
+        curl.verbose = @verbose
+        @session.send :curl, curl unless not @session.methods.include? :curl
+        block.call curl           unless block.nil?
+      end
+
+      unless skip_json || (result.body_str.nil? || result.body_str.empty?)
+        begin
+          data = JSON.parse result.body_str
+          raise Sharepoint::SPException.new data, uri, body unless data['error'].nil?
+          make_object_from_response data
+        rescue JSON::ParserError => e
+          raise Exception.new("Exception with body=#{body}, e=#{e.inspect}, #{e.backtrace.inspect}, response=#{result.body_str}")
+        end
+      else
+        result.body_str
+      end
+    end
+
 
 
     def image_list method, uri,sites = nil, body = nil, skip_json=false, &block
