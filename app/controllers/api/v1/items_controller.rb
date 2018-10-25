@@ -11,6 +11,19 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
+        if @server_url == "nofitromsas.sharepoint.com/forbedring"
+          site_name= @server_url
+          a = site_name.split('/')
+          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites.session.authenticate  @email, @password
+          list = sites.list(@list_name)
+          site = a[1]
+          current_login_user = sites.context_info.current_user.id
+          items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
+
+          render json: [success:true , data: items.collect(&:data)]
+        else
+
           site_name =  @server_url
           a = site_name.split('.com/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -22,7 +35,9 @@ module Api::V1
           items = list.find_items({orderby: "Created desc &$filter=AuthorId eq #{current_login_user} &$filter = Created le #{DateTime.now - 31.days}" }, site)
 
       render json: [success:true , data: items.collect(&:data)]
+        end
     end
+
 
 
 
@@ -34,6 +49,25 @@ module Api::V1
       @list_name = request.headers["list"]
       @image = request.headers["image"]
       Item.delete_all
+      if @server_url == "nofitromsas.sharepoint.com/forbedring"
+        site_name= @server_url
+        a = site_name.split('/')
+        sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+        sites.session.authenticate  @email, @password
+        list = sites.list(@list_name)
+        site = a[1]
+        if @image.present?
+          items = list.find_items({filter: "ID eq #{@image.split('/')[9].split('(')[1].split(')')[0]}" }, site)
+          items.each do |d|
+            if d.attachment_files.present?
+              @images =  "https://vyzr.sharepoint.com/"+ d.attachment_files.first.server_relative_url
+              @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
+              @item.set_picture(list.show_image(@images,site))
+            end
+          end
+          render json: {success: true , data: @item.as_json(:only => [:image_url,:title,:description,:updated_time,:created_time,:complete_percentage])}
+        end
+      else
       site_name=  @server_url
       a = site_name.split('.com/')
       sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -52,7 +86,9 @@ module Api::V1
            end
            render json: {success: true , data: @item.as_json(:only => [:image_url,:title,:description,:updated_time,:created_time,:complete_percentage])}
          end
+      end
     end
+
 
 
 
@@ -62,6 +98,24 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
+        if @server_url == "nofitromsas.sharepoint.com/forbedring"
+          site_name= @server_url
+          a = site_name.split('/')
+          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+          sites.session.authenticate  @email, @password
+          list = sites.list(@list_name)
+          site = a[1]
+          @list = Item.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
+          list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
+          if params[:items][:image].present?
+            if @list.image_url.present?
+              a =(@list.image_url.read)
+              list.add_attachment(a,list_result.data['__metadata']['uri'] ,site)
+            end
+          end
+          render json: {success: true , data: Item.last }
+          Item.delete_all
+        else
          site_name= @server_url
          a = site_name.split('.com/')
          sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -69,7 +123,6 @@ module Api::V1
          list = sites.list(@list_name)
          b= a[1].split('/')
          site = b[1]
-         current_login_user = sites.context_info.current_user.id
          @list = Item.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
           if params[:items][:image].present?
@@ -80,7 +133,9 @@ module Api::V1
           end
          render json: {success: true , data: Item.last }
           Item.delete_all
+        end
     end
+
 
 
     # def sync(user,email,list_name,server_url,password)
