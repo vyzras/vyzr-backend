@@ -106,6 +106,12 @@ module Api::V1
           list = sites.list(@list_name)
           site = a[1]
           @list = Item.create(title: params[:items][:title], description: params[:items][:description],:image_url => params[:items][:image])
+          puts "****************"
+          puts sites
+          puts "****************"
+          puts  @email
+          puts @password
+          puts "****************"
           list_result = list.add_second_list({"Title" => "#{params[:items][:title]}", "CaseDescription"=> "#{params[:items][:description]}"},site)
           if params[:items][:image].present?
             if @list.image_url.present?
