@@ -98,6 +98,15 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
+        puts "****************"
+        puts @server_url
+        puts "****************"
+        puts  @email
+        puts @password
+        puts "****************"
+        puts @list_name
+        puts "****************"
+
         if @server_url == "nofitromsas.sharepoint.com/forbedring"
           site_name= @server_url
           a = site_name.split('/')
