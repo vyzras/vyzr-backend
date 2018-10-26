@@ -52,12 +52,12 @@ module Api::V1
       if @server_url.downcase == "Nofitromsas.sharepoint.com/forbedring".downcase
         site_name= @server_url
         a = site_name.split('/')
-        sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
+        sites =  Sharepoint::Site.new a[0], a[1]
         sites.session.authenticate  @email, @password
         list = sites.list(@list_name)
         site = a[1]
         if @image.present?
-          items = list.find_items({filter: "ID eq #{@image.split('/')[9].split('(')[1].split(')')[0]}" }, site)
+          items = list.find_items_second({filter: "ID eq #{@image.split('/')[7].split('(')[1].split(')')[0]}" }, site)
           items.each do |d|
             if d.attachment_files.present?
               @images =  "https://Nofitromsas.sharepoint.com/"+ d.attachment_files.first.server_relative_url

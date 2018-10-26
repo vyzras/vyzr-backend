@@ -85,6 +85,10 @@ module Sharepoint
       @site.query_second :get, (make_item_filter options) ,site
     end
 
+    def find_items_second options = {}, site
+      @site.query_third :get, (make_item_filter options) ,site
+    end
+
     def item_count
       @site.query :get, "#{__metadata['id']}/ItemCount"
     end
