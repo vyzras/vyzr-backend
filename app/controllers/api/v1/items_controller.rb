@@ -11,7 +11,7 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
-        if @server_url.downcase == "Nofitromsas.sharepoint.com/forbedring".downcase
+        if @server_url== "Nofitromsas.sharepoint.com/forbedring"
           site_name= @server_url
           a = site_name.split('/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
