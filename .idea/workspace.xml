@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2752d08a-6213-42ae-898f-48974d1f0ce8" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/sharepoint-lists.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sharepoint/sharepoint-ruby.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -38,8 +35,8 @@
       <file leaf-file-name="items_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="122" selection-start-line="122" selection-end-line="122" />
+            <state relative-caret-position="417">
+              <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -146,9 +143,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="646" />
-    <option name="width" value="634" />
-    <option name="height" value="800" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
+    <option name="height" value="727" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -442,7 +439,7 @@
       <workItem from="1540282403988" duration="8363000" />
       <workItem from="1540363261093" duration="248000" />
       <workItem from="1540448586082" duration="192000" />
-      <workItem from="1540464525417" duration="3712000" />
+      <workItem from="1540464525417" duration="5048000" />
     </task>
     <servers />
   </component>
@@ -452,7 +449,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="261120000" />
+    <option name="totallyTimeSpent" value="262456000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -826,8 +823,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/api/v1/items_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="122" selection-start-line="122" selection-end-line="122" />
+        <state relative-caret-position="417">
+          <caret line="62" column="60" selection-start-line="62" selection-start-column="60" selection-end-line="62" selection-end-column="60" />
         </state>
       </provider>
     </entry>

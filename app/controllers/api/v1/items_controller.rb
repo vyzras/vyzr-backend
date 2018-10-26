@@ -11,7 +11,7 @@ module Api::V1
         @password = request.headers["password"]
         @server_url = request.headers["server"]
         @list_name = request.headers["list"]
-        if @server_url == "nofitromsas.sharepoint.com/forbedring"
+        if @server_url.downcase == "Nofitromsas.sharepoint.com/forbedring".downcase
           site_name= @server_url
           a = site_name.split('/')
           sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -49,7 +49,7 @@ module Api::V1
       @list_name = request.headers["list"]
       @image = request.headers["image"]
       Item.delete_all
-      if @server_url == "nofitromsas.sharepoint.com/forbedring"
+      if @server_url.downcase == "Nofitromsas.sharepoint.com/forbedring".downcase
         site_name= @server_url
         a = site_name.split('/')
         sites =  Sharepoint::Site.new a[0]+ ".com", a[1]
@@ -60,7 +60,7 @@ module Api::V1
           items = list.find_items({filter: "ID eq #{@image.split('/')[9].split('(')[1].split(')')[0]}" }, site)
           items.each do |d|
             if d.attachment_files.present?
-              @images =  "https://vyzr.sharepoint.com/"+ d.attachment_files.first.server_relative_url
+              @images =  "https://Nofitromsas.sharepoint.com/"+ d.attachment_files.first.server_relative_url
               @item =  Item.create(title: d.data["Title"], description:d.data["CaseDescription"].to_s ,complete_percentage: d.data["PercentComplete"],created_time: d.data["Created"],updated_time:d.data["Modified"] )
               @item.set_picture(list.show_image(@images,site))
             end
